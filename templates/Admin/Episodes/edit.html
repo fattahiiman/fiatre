@@ -1,0 +1,322 @@
+{% extends 'Layouts/admin-master.html' %}
+{% load i18n %}
+
+{% block title %} ویرایش ویدیو {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-lg-12">
+                <div class="card-box">
+                    <h2 class="card-title"><b>ویرایش ویدیو {{ form.title.value }}</b></h2>
+
+                    {% if form.errors %}
+                        {% for field in form %}
+
+                            {% if field.errors %}
+                                <div class="alert alert-danger">
+                                    {{ field.label }} : {{ field.errors|striptags }}
+                                    <br>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ error }}
+                                <br>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form class="form-horizontal"
+                          action="{% url 'episodes-update' object.id %}"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">عنوان</label>
+                            <div class="col-md-10">
+                                <input required type="text" name="title"
+                                       id="title"
+                                       class="form-control rounded"
+                                       placeholder="عنوان را وارد کنید"
+                                       value="{% if form.title.value %}{{ form.title.value }}{% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">نامک (slug)</label>
+                            <div class="col-md-10">
+                                <input required type="text" name="slug"
+                                       id="slug"
+                                       class="form-control rounded"
+                                       placeholder="نامک (slug) را وارد کنید"
+                                       value="{% if form.slug.value %}{{ form.slug.value }}{% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">مدرس</label>
+                            <div class="col-md-10">
+                                <input type="text" name="teacher"
+                                       class="form-control rounded"
+                                       placeholder="مدرس را وارد کنید"
+                                       value="{% if form.teacher.value %}{{ form.teacher.value }}{% endif %}">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">قسمت</label>
+                            <div class="col-md-10">
+                                <input type="text" name="episode"
+                                       class="form-control rounded"
+                                       placeholder="قسمت را وارد کنید"
+                                       value="{% if form.episode.value %}{{ form.episode.value }}{% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">زمان (به دقیقه)</label>
+                            <div class="col-md-10">
+                                <input required type="text" name="time"
+                                       class="form-control rounded"
+                                       placeholder="زمان را وارد کنید"
+                                       value="{% if form.time.value %}{{ form.time.value }}{% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">دسته بندی</label>
+                            <div class="col-md-10">
+
+                                <select required class="form-control rounded" name="category">
+
+                                    <option value="">بدون دسته بندی</option>
+
+                                    {% for item in categories %}
+                                        <option {% if form.category.value|floatformat == item.id|floatformat %}
+                                            selected {% endif %}
+                                            value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">نوع ویدیو (آموزشی ، فیلم)</label>
+                            <div class="col-md-10">
+
+                                <select onchange="ChangeType()" required class="form-control rounded" name="type"
+                                        id="type">
+                                    <option value="">بدون نوع ویدیو</option>
+                                    <option {% if form.type.value == 'educational' %} selected {% endif %}
+                                                                                      value="educational">آموزشی
+                                    </option>
+                                    <option {% if form.type.value == 'movie' %} selected {% endif %} value="movie">
+                                        فیلم
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div id="movie_fields">
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">امتیاز imdb</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="imdb_score"
+                                           class="form-control rounded"
+                                           placeholder="امتیاز imdb را وارد کنید"
+                                           value="{% if form.imdb_score.value %}{{ form.imdb_score.value }}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">کارگردان</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="director"
+                                           class="form-control rounded"
+                                           placeholder="کارگردان را وارد کنید"
+                                           value="{% if form.director.value %}{{ form.director.value }}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">نویسنده</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="writer"
+                                           class="form-control rounded"
+                                           placeholder="نویسنده را وارد کنید"
+                                           value="{% if form.writer.value %}{{ form.writer.value }}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">بازیگران</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="actors"
+                                           class="form-control rounded"
+                                           placeholder="بازیگران را وارد کنید"
+                                           value="{% if form.actors.value %}{{ form.actors.value }}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">ژانر</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="genre"
+                                           class="form-control rounded"
+                                           placeholder="ژانر را وارد کنید"
+                                           value="{% if form.genre.value %}{{ form.genre.value }}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">محصول کشور</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="country"
+                                           class="form-control rounded"
+                                           placeholder="محصول کشور را وارد کنید"
+                                           value="{% if form.country.value %}{{ form.country.value }}{% endif %}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">سال ساخت</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="construction_year"
+                                           class="form-control rounded"
+                                           placeholder="سال ساخت را وارد کنید"
+                                           value="{% if form.construction_year.value %}{{ form.construction_year.value }}{% endif %}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">توضیحات (متن کوتاه)</label>
+                            <div class="col-md-10">
+                            <textarea required name="description"
+                                      class="form-control"
+                                      placeholder="توضیحات را وارد کنید"
+                                      rows="10">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">عکس</label>
+                            <div class="col-md-10">
+                                <input type="file" name="image"
+                                       class="form-control rounded"
+                                       placeholder="عکس را وارد کنید"
+                                       value="{% if form.image.value %}{{ form.image.value }}{% endif %}">
+
+                                <div class="row">
+                                    <br>
+                                    <div class="col-sm-2 col-xs-10 "
+                                         style="border-radius: 20px;box-shadow: 5px 10px 18px rgba(32,32,32,0.55); margin-right: 30px ; margin-top: 30px">
+                                        <label class="control-label">
+                                            عکس فعلی
+                                        </label>
+                                        <a href="{{ form.image.value.url }}" target="_blank"><img
+                                                style="border-radius: 20px; margin-bottom: 8px;"
+                                                src="{{ form.image.value.url }}" width="100%"></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">لینک ویدیو(mp4)</label>
+                            <div class="col-md-10">
+                                <input type="url" name="video"
+                                       class="form-control rounded"
+                                       placeholder="لینک ویدیو(mp4) را وارد کنید"
+                                       value="{% if form.video.value %} {{ form.video.value }} {% endif %}">
+
+                                {% if form.video %}
+                                    <div class="row">
+                                        <br>
+                                        <div class="col-sm-2 col-xs-10 "
+                                             style="border-radius: 20px;box-shadow: 5px 10px 18px rgba(32,32,32,0.55); margin-right: 30px ; margin-top: 30px">
+                                            <label class="control-label">
+                                                لینک دانلود(mp4) فیلم فعلی
+                                            </label>
+                                            <video width="100%" controls>
+                                                <source src="{{ form.video.value }}" type="video/mp4">
+                                            </video>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="m-1-25 m-b-20">
+                                <button class="btn btn-info btn-border-radius waves-effect" type="submit">ویرایش
+                                </button>
+                                <a href="{{ request.META.HTTP_REFERER }}"
+                                   class="btn btn-danger btn-border-radius waves-effect">
+                                    بازگشت
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block Scripts %}
+    <script>
+        $("#title").on('keyup', function () {
+
+            data = $("#title").val()
+            data = data.replaceAll(' ', '-')
+
+            $("#slug").val(data)
+        });
+
+        $('#slug').on('keyup', function () {
+
+            data = $("#slug").val()
+            data = data.replaceAll(' ', '-')
+            $("#slug").val(data)
+
+        })
+
+        {% if form.type.value == 'movie' %}
+            $("#movie_fields :input").attr('required', true)
+            $('#movie_fields').show()
+        {% else %}
+            $('#movie_fields').hide()
+        {% endif %}
+
+        function ChangeType() {
+            var selected_type = $("#type").val()
+
+            if (selected_type === 'movie') {
+                $("#movie_fields :input").attr('required', true)
+                $('#movie_fields').show()
+            } else {
+                $("#movie_fields :input").val(null)
+                $("#movie_fields :input").attr('required', false)
+                $('#movie_fields').hide()
+            }
+        }
+    </script>
+{% endblock %}

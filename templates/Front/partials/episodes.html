@@ -1,0 +1,78 @@
+<main id="episodes_list">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12 mt-5">
+
+                {% if episodes %}
+                    {% if search_word %}
+                        <h3 class="mt-5 mb-5 text-center text-white">نتایج جستجو '{{ search_word }}'</h3>
+                    {% else %}
+                        <h3 class="mt-5 mb-5 text-center text-white">دسته بندی {{ category.name }}</h3>
+                    {% endif %}
+                {% endif %}
+
+                <div class="archive-container" style=" margin-top: 100px;">
+                    {% for item in episodes %}
+                        <div class="box-archive">
+                            <a href="{% url 'episode' item.slug %}">
+                                <div class="box-archive-thumbnail"><img data-lazyloaded="1"
+                                                                        src="{{ item.image.url }}"
+                                                                        width="400" height="550"
+                                                                        data-src="{{ item.image.url }}"
+                                                                        class="attachment-post-thumbnail size-post-thumbnail wp-post-image litespeed-loaded"
+                                                                        alt="" loading="lazy"
+                                                                        data-srcset="{{ item.image.url }} 400w, {{ item.image.url }} 218w"
+                                                                        data-sizes="(max-width: 400px) 100vw, 400px"
+                                                                        sizes="(max-width: 400px) 100vw, 400px"
+                                                                        srcset="{{ item.image.url }} 400w, {{ item.image.url }} 218w"
+                                                                        data-was-processed="true"></div>
+                                <div class="box-archive-title">
+                                    {{ item.title }} {% if item.episode %}
+                                    (قسمت {{ item.episode }})
+                                {% endif %}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if episodes.has_other_pages %}
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-md-offset-2 col-md-8 p-4">
+                    <div class="center">
+                        <div class="pagination">
+                            {% if episodes.has_previous %}
+                                <a onclick="Paginate({{ episodes.previous_page_number }})">&raquo;</a>
+                            {% else %}
+                                <a class="disabled">&raquo;</a>
+                            {% endif %}
+
+
+                            {% for i in episodes.paginator.page_range %}
+                                {% if episodes.number == i %}
+                                    <a class="disabled active">{{ i }}</a>
+                                {% else %}
+                                    <a onclick="Paginate({{ i }})">{{ i }}</a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if episodes.has_next %}
+                                <a onclick="Paginate({{ episodes.next_page_number }})">&laquo;</a>
+                            {% else %}
+                                <a class="disabled">&laquo;</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+</main>

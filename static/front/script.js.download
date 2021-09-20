@@ -1,0 +1,10 @@
+jQuery( document ).ready(function(){jQuery("video").each(function(){jQuery(this).attr('controlsList','nodownload');jQuery(this).load();});});
+
+/*
+$(document).keydown(function(vms1){
+  if(vms1.keyCode==123){return false;}
+  if(vms1.ctrlKey && event.shiftKey && event.keyCode==73){return false;}
+  if(vms1.ctrlKey && event.shiftKey && event.keyCode==67){return false;}});
+$(document).on("contextmenu",function(vms2){vms2.preventDefault();});
+
+*/

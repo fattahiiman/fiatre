@@ -1,0 +1,124 @@
+{% extends 'Layouts/admin-master.html' %}
+{% load i18n %}
+
+{% block title %} افزودن دسته بندی {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-lg-12">
+                <div class="card-box">
+                    <h2 class="card-title"><b>افزودن دسته بندی جدید</b></h2>
+
+                    {% if form.errors %}
+                        {% for field in form %}
+
+                            {% if field.errors %}
+                                <div class="alert alert-danger">
+                                    {{ field.label }} : {{ field.errors|striptags }}
+                                    <br>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ error }}
+                                <br>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form class="form-horizontal"
+                          action="{% url 'categories-create' %}"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">نام</label>
+                            <div class="col-md-10">
+                                <input required type="text" name="name"
+                                       id="name"
+                                       class="form-control rounded"
+                                       placeholder="نام را وارد کنید"
+                                       value="{% if form.name.value %}{{ form.name.value }}{% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">نامک (slug)</label>
+                            <div class="col-md-10">
+                                <input required type="text" name="slug"
+                                       id="slug"
+                                       class="form-control rounded"
+                                       placeholder="نامک (slug) را وارد کنید"
+                                       value="{% if form.slug.value %}{{ form.slug.value }}{% endif %}">
+                            </div>
+                        </div>
+
+                     <div class="form-group">
+                            <label class="control-label col-lg-2">توضیحات (متن کوتاه)</label>
+                            <div class="col-md-10">
+                            <textarea required name="description"
+                                      class="form-control"
+                                      placeholder="توضیحات را وارد کنید"
+                                      rows="10">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">عکس</label>
+                            <div class="col-md-10">
+                                <input required type="file" name="image"
+                                       class="form-control rounded"
+                                       placeholder="عکس را وارد کنید"
+                                       value="{% if form.image.value %}{{ form.image.value }}{% endif %}">
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="m-1-25 m-b-20">
+                                <button class="btn btn-info btn-border-radius waves-effect" type="submit">ثبت</button>
+                                <a href="{{ request.META.HTTP_REFERER }}"
+                                   class="btn btn-danger btn-border-radius waves-effect">
+                                    بازگشت
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block Scripts %}
+    <script>
+
+        $("#name").on('keyup', function () {
+
+            data = $("#name").val()
+            data = data.replaceAll(' ', '-')
+
+            $("#slug").val(data)
+        });
+
+        $('#slug').on('keyup', function () {
+
+            data = $("#slug").val()
+            data = data.replaceAll(' ', '-')
+            $("#slug").val(data)
+
+        })
+
+    </script>
+{% endblock %}

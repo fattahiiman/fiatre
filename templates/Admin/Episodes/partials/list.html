@@ -1,0 +1,100 @@
+{% load episode_tags %}
+
+<span id="list">
+    <table class="table table-hover">
+    <thead>
+    <tr>
+        <th>ردیف</th>
+        <th>عنوان</th>
+        <th>زمان</th>
+        <th>استاد</th>
+        <th>دسته بندی</th>
+        <th>نوع ویدیو</th>
+        <th>تعداد بازدید</th>
+        <th>عکس</th>
+        <th>ویدیو (mp4)</th>
+        <th>اعمال</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for item in episodes %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{ item.title }}</td>
+
+            <td>{{ item.time }} دقیقه</td>
+
+            <td>{{ item.teacher | default_if_none:'-' }}</td>
+
+            <td>{{ item.category.name }}</td>
+
+             <td>
+                        <span class="{% if item.type == 'educational' %}
+                               label label-success-border rounded
+                         {% else %}
+                                 label label-danger-border rounded
+                         {% endif %}">
+
+                          {% if item.type == 'educational' %}
+                              آموزشی
+                          {% else %}
+                              فیلم
+                          {% endif %}
+                        </span>
+                </td>
+
+            <td>{{ item.view_count }}</td>
+
+            <td><img width="70" src="{{ item.image.url }}" alt="{{ item.title }}"></td>
+
+         <td>
+                {% if item.get_video_mp4_url and item.get_video_mp4_url.url %}
+                    <a target="_blank" href="{{ item.get_video_mp4_url.url }}">دانلود فیلم</a>
+                {% elif  item.get_video_mp4_url %}
+                    <a target="_blank" href="{{ item.get_video_mp4_url }}">دانلود فیلم</a>
+                {% else %}
+                    بدون ویدیو
+                {% endif %}
+            </td>
+
+            <td>
+                <div class="buttons ">
+                    <form action="{% url 'users-delete' item.id %}"
+                          method="post">
+                        {% csrf_token %}
+
+                        <a href="{% url 'episodes-update' item.id %}"
+                           class="btn btn-primary btn-action mr-1"
+                           data-toggle="tooltip" title=""
+                           data-original-title="ویرایش"><i
+                                class="fas fa-pencil-alt"></i><i
+                                class="fa fa-pencil"> </i> </a>
+                        <button type="button"
+                                data-original-title="حذف"
+                                data-toggle="tooltip"
+                                onclick="return DeleteConfirm('{{ item.title }}' , {{ item.id }} , '{{ page_obj|is_last_item:episodes }}')"
+                                class="delete_button btn btn-danger btn-action"><i
+                                class="fa fa-trash"> </i>
+                        </button>
+
+                        {% if item.video %}
+                            <button type="button"
+                                    data-original-title="حذف فیلم"
+                                    data-toggle="tooltip"
+                                    onclick="return DeleteVideoConfirm('{{ item.title }}' , {{ item.id }})"
+                                    class="btn btn-danger btn-action"><i
+                                    class="fa fa-video-camera"> </i>
+                                </button>
+                        {% endif %}
+
+                    </form>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    {% include 'Admin/pagination.html' with page_obj=page_obj %}
+</span>

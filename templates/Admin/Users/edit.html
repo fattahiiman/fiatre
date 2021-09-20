@@ -1,0 +1,102 @@
+{% extends 'Layouts/admin-master.html' %}
+{% load i18n %}
+
+{% block title %} ویرایش کاربر {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-lg-12">
+                <div class="card-box">
+                    <h2 class="card-title"><b>ویرایش کاربر ({{ form.phone.value }})</b></h2>
+
+                    {% if form.errors %}
+                        {% for field in form %}
+
+                            {% if field.errors %}
+                                <div class="alert alert-danger">
+                                    {{ field.label }} : {{ field.errors|striptags }}
+                                    <br>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ error }}
+                                <br>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form class="form-horizontal"
+                          action="{% url 'users-update' user_id %}"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">شماره موبایل</label>
+                            <div class="col-md-10">
+                                <input required type="text" name="phone"
+                                       class="form-control rounded"
+                                       placeholder="شماره موبایل را وارد کنید"
+                                       value="{% if form.phone.value %} {{ form.phone.value }} {% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">رمز عبور</label>
+                            <div class="col-md-10">
+                                <input type="text" name="password"
+                                       class="form-control rounded"
+                                       placeholder="رمز عبور را وارد کنید"
+                                       value="{% if form.password.value %} {{ form.password.value }} {% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">تکرار رمز عبور</label>
+                            <div class="col-md-10">
+                                <input type="text" name="password2"
+                                       class="form-control rounded"
+                                       placeholder="تکرار رمز عبور را وارد کنید"
+                                       value="{% if form.password2.value %} {{ form.password2.value }} {% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">آیا مدیر است؟</label>
+                            <div class="col-md-10">
+                                <input type="checkbox" name="is_superuser"
+                                       style="width: 30px !important;"
+                                       class="form-control rounded"
+                                       placeholder="وضعیت مدیریت را وارد کنید"
+                                        {% if form.is_superuser.value %} checked {% endif %}>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="m-1-25 m-b-20">
+                                <button class="btn btn-info btn-border-radius waves-effect" type="submit">ویرایش
+                                </button>
+                                <a href="{% url 'users' %}"
+                                   class="btn btn-danger btn-border-radius waves-effect">
+                                    بازگشت
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

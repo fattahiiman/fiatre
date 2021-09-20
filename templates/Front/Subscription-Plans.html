@@ -1,0 +1,41 @@
+{% extends 'Layouts/front-master.html' %}
+{% load humanize %}
+{% load static %}
+{% load front_tags %}
+
+{% block title %} پلن های اشتراکی {% endblock %}
+
+{% block content %}
+    <div class="main-background">
+        <div class="snip1404">
+
+            {% for item in plans %}
+
+                <div class="plan {% show_color counter colors %}">
+                    <header>
+                        <h4 class="plan-title">
+                            {{ item.name }}
+                        </h4>
+                        <div class="plan-cost"><span class="plan-price">{{ item.price | intcomma:False | persian_int }} تومان</span>
+                        </div>
+                    </header>
+                    <ul class="plan-features">
+                        <li><i class="ion-checkmark"> </i><b>{{ item.time }} ماهه</b></li>
+                        {% if item.get_type == 'full' %}
+                            <li><i class="ion-checkmark"> </i>قابلیت دانلود و تماشای آنلاین</li>
+                        {% else %}
+                            <li><i class="ion-checkmark"> </i>قابلیت تماشای آنلاین</li>
+                        {% endif %}
+                        <li><i class="ion-checkmark"> </i>دسترسی به تمام ویدئوها</li>
+                    </ul>
+                    <div class="plan-select"><a href="{% url 'subscription-buy' item.slug %}">انتخاب و ادامه</a></div>
+                </div>
+
+                {% check_color counter as counter %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

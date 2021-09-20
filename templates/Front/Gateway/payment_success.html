@@ -1,0 +1,61 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+
+{% block title %} پرداخت موفق {% endblock %}
+
+{% block content %}
+
+    <main>
+        <div class="container-fluid mt-5">
+            <div class="row justify-content-center" style="justify-content: center!important;">
+                <div class="col-md-4 mt-5" style="padding: 10px 5px; ">
+                    <div class="loin-card " style="text-align: right;
+                        color: #fff; background-image: linear-gradient( 180deg, #0e0e0e, #282929);padding: 65px 30px; border-radius: 10px; margin-right: -15px; margin-left: -15px;">
+                        <div class="title-accont text-center">
+                            <p>
+                                پرداخت شما با موفقیت انجام شد
+                                <br>
+
+                            </p>
+                            <div class="type-sub">
+                                <ul style="padding: 2px 0px; width: 100%;">
+                                    <li>
+                                        <p>
+                                            شماره پیگیری
+                                        </p>
+
+                                        <p>
+                                            {{ ref_code }}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            وضعیت اشتراک
+                                        </p>
+                                        <p>
+                                            فعال
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            تاریخ انقضا
+                                        </p>
+
+                                        <p>
+                                            &nbsp;&nbsp; {{ expiration_date | date:'H:i Y-m-d' }}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+{% endblock %}

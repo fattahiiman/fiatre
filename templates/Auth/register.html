@@ -1,0 +1,80 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+
+{% block title %} ثبت نام {% endblock %}
+
+{% block content %}
+    <main>
+        <div class="container-fluid mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-4 mt-5">
+                    <div class="login-card">
+                        <form action="{% url 'register' %}" method="post">
+                            {% csrf_token %}
+
+                            <p>
+                                لطفا شماره تلفن همراه خود را وارد نمایید <br> مثال: ********0912
+                            </p>
+
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    <p>{{ field.errors }}</p>
+                                    {% if field.errors %}
+
+                                        <div class="alert alert-danger">
+                                            {{ field.label }} : {{ field.errors|striptags }}
+                                            <br>
+                                        </div>
+
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        {{ error }}
+                                        <br>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+
+                            {% if messages %}
+                                {% for item in messages %}
+                                    {% if item.tags == 'success' %}
+                                        <div class="alert alert-success">
+                                            {{ item }}
+                                            <br>
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-danger">
+                                            {{ item }}
+                                            <br>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
+                            <input type="text" {% if form.phone.value %}{{ form.phone.value }}{% endif %} name="phone"
+                                   class="form-control" placeholder="شماره تلفن همراه">
+                            <input type="password" {% if form.password.value %}{{ form.password.value }}{% endif %}
+                                   name="password" class="form-control" placeholder="رمز عبور">
+                            <input type="password" {% if form.password2.value %}{{ form.password2.value }}{% endif %}
+                                   name="password2" class="form-control" placeholder="تکرار رمز عبور">
+                            <div class="form-check">
+                                <input id="box1" type="checkbox"/>
+                                <label for="box1">مرا بخاطر بسپار</label>
+                            </div>
+                            <a href="{% url 'login' %}">قبلا ثبت نام کرده اید؟ وارد شوید</a>
+                            <div class="button-login">
+                                <button type="submit">
+                                    ثبت نام
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+    </main>
+{% endblock %}

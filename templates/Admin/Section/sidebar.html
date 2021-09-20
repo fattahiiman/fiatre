@@ -1,0 +1,74 @@
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <li class="menu-title">پنل ادمین فیاتر</li>
+                <li class="active">
+                    <a href="{% url 'admin-dashboard' %}"><i class="fa fa-dashboard"></i> داشبورد</a>
+                </li>
+
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span>کاربران فیاتر</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{% url 'users' %}">لیست کاربران</a></li>
+                        <li><a href="{% url 'users-create' %}">افزودن کاربر جدید</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-title">ویدیو ها</li>
+
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>دسته بندی ها فیاتو</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{% url 'categories' %}">لیست دسته بندی ها</a></li>
+                        <li><a href="{% url 'categories-create' %}">افزودن دسته بندی جدید</a></li>
+                    </ul>
+                </li>
+
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-video-camera" aria-hidden="true"></i> <span>ویدیو ها فیاتو</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{% url 'episodes' %}">لیست ویدیو ها</a></li>
+                        <li><a href="{% url 'episodes-create' %}">افزودن ویدیو جدید</a></li>
+                    </ul>
+                </li>
+
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-code" aria-hidden="true"></i> <span>کد تخفیف فیاتو</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{% url 'coupons' %}">لیست کد تخفیف ها</a></li>
+                        <li><a href="{% url 'coupons-create' %}">افزودن کد تخفیف جدید</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-title">اشتراک ها</li>
+
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-money" aria-hidden="true"></i> <span>اشتراک فیاتو</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{% url 'types' %}">لیست انواع اشتراک ها</a></li>
+                        <li><a href="{% url 'types-create' %}">افزودن اشتراک جدید</a></li>
+                        <li><a href="{% url 'subscriptions-create' %}">الحاق اشتراک به کاربر</a></li>
+                    </ul>
+                </li>
+
+                <hr>
+
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-cog" aria-hidden="true"></i> <span>تنظیمات</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{% url 'settings' %}">لیست تنظیمات</a></li>
+                        <li><a href="{% url 'settings-create' %}">افزودن تنظیمات جدید</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+
+{% block title %} درباره فیاتر {% endblock %}
+
+{% block content %}
+    <main>
+        <div class="main_background" style=" margin-top: -130px;"><img
+                src="https://fiatre.ir/wp-content/themes/fiatre.ir/image/main-background.jpg" alt="main background">
+            <h1 style="font-size: 35px; margin-top: -680px;">{{ about_title }}</h1></div>
+
+        <div class="page-container" style="font-family: Shabnam;">
+            <article class="page-entry">
+                {{ about_text | safe }}
+            </article>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% load user_tags %}
+
+<span id="list">
+    <table class="table table-hover">
+    <thead>
+    <tr>
+        <th>ردیف</th>
+        <th>شماره موبایل</th>
+        <th>نقش کاربری</th>
+        <th>نوع اشتراک</th>
+        <th>اعمال</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for item in users %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{ item.phone }}</td>
+
+            <td>
+                    <span class="{% if item.is_superuser %}
+                           label label-success-border rounded
+                     {% else %}
+                             label label-danger-border rounded
+                     {% endif %}">
+
+                      {% if item.is_superuser %}
+                          مدیر
+                      {% else %}
+                          کاربر
+                      {% endif %}
+                    </span>
+            </td>
+
+            <td>
+                {% if item.get_subscription %}
+                    <a data-toggle="tooltip"
+                       data-original-title="ویرایش اشتراک کاربر"
+                       href="{% url 'subscriptions-update' item.get_subscription.id %}">{{ item.get_subscription.type }}</a>
+                {% else %}
+                    بدون اشتراک
+                {% endif %}
+            </td>
+
+            <td>
+                <div class="buttons ">
+                    <form action="{% url 'users-delete' item.id %}"
+                          method="post">
+                        {% csrf_token %}
+
+                        <a href="{% url 'users-update' item.id %}"
+                           class="btn btn-primary btn-action mr-1"
+                           data-toggle="tooltip" title=""
+                           data-original-title="ویرایش"><i
+                                class="fas fa-pencil-alt"></i><i
+                                class="fa fa-pencil"> </i> </a>
+                        <button type="button"
+                                data-original-title="حذف"
+                                data-toggle="tooltip"
+                                onclick="return DeleteConfirm('{{ item.phone }}' , {{ item.id }} , '{{ page_obj|is_last_item:users }}')"
+                                class="delete_button btn btn-danger btn-action"><i
+                                class="fa fa-trash"> </i>
+                        </button>
+
+                        {% if item.get_subscription %}
+                            <button type="button"
+                                    data-original-title="سلب اشتراک"
+                                    data-toggle="tooltip"
+                                    onclick="return DeleteSubscriptionConfirm('{{ item.phone }}' , {{ item.get_subscription.id }})"
+                                    class="btn btn-danger btn-action"><i
+                                    class="fa fa-ban"> </i>
+                                </button>
+
+                        {% else %}
+                            <a href="{% url 'subscriptions-create' %}?phone={{ item.phone }}"
+                               class="btn btn-success btn-action mr-1"
+                               data-toggle="tooltip" title=""
+                               data-original-title="الحاق اشتراک"><i
+                                    class="fas fa-pencil-alt"></i><i
+                                    class="fa fa-user-plus"> </i> </a>
+                        {% endif %}
+
+                    </form>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    {% include 'Admin/pagination.html' with page_obj=page_obj %}
+</span>

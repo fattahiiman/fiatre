@@ -1,0 +1,54 @@
+{% load category_tags %}
+
+<span id="list">
+    <table class="table table-hover">
+    <thead>
+    <tr>
+        <th>ردیف</th>
+        <th>نام</th>
+        <th>نامک</th>
+        <th>عکس</th>
+        <th>اعمال</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for item in categories %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{ item.name }}</td>
+
+            <td>{{ item.slug }}</td>
+
+            <td><img width="70" src="{{ item.image.url }}" alt="{{ item.title }}"></td>
+
+            <td>
+                <div class="buttons ">
+                    <form action="{% url 'users-delete' item.id %}"
+                          method="post">
+                        {% csrf_token %}
+
+                        <a href="{% url 'categories-update' item.id %}"
+                           class="btn btn-primary btn-action mr-1"
+                           data-toggle="tooltip" title=""
+                           data-original-title="ویرایش"><i
+                                class="fas fa-pencil-alt"></i><i
+                                class="fa fa-pencil"> </i> </a>
+                        <button type="button"
+                                data-original-title="حذف"
+                                data-toggle="tooltip"
+                                onclick="return DeleteConfirm('{{ item.name }}' , {{ item.id }} , '{{ page_obj|is_last_item:categories }}')"
+                                class="delete_button btn btn-danger btn-action"><i
+                                class="fa fa-trash"> </i>
+                        </button>
+
+                    </form>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    {% include 'Admin/pagination.html' with page_obj=page_obj %}
+</span>

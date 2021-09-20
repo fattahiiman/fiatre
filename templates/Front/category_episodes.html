@@ -1,0 +1,25 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+
+{% block title %} {{ category.name }} {% endblock %}
+
+{% block content %}
+        {% include 'Front/partials/episodes.html' with episodes=episodes %}
+{% endblock %}
+
+{% block Scripts %}
+    <script>
+        function Paginate(page = 1) {
+            $.ajax({
+                url: page === 1 ? "{% url 'category' category.slug %}" : "{% url 'category' category.slug %}?page=" + page,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#episodes_list").html(data['episodes'])
+                },
+            });
+        }
+
+    </script>
+{% endblock %}
+

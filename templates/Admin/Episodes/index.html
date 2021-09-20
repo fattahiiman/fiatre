@@ -1,0 +1,232 @@
+{% extends 'Layouts/admin-master.html' %}
+
+{% block title %} لیست ویدیو ها {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        {% if messages %}
+            {% for item in messages %}
+                <script>
+                    Swal.fire({
+                        title: "تبریک ! 🥳",
+                        icon: 'success',
+                        text: '{{ item }}',
+                        type: "success",
+                        cancelButtonColor: 'var(--primary)',
+                        confirmButtonText: 'اوکی',
+                    })
+                </script>
+            {% endfor %}
+        {% endif %}
+
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div class="card-block">
+                    <h4 class="card-title">لیست ویدیو ها</h4>
+
+                    {% include 'Admin/search_box.html' with page_obj=page_obj %}
+
+                    <a class="btn btn-primary pull-right" href="{% url 'episodes-create' %}">افزودن ویدیو جدید</a>
+
+                    {% include 'Admin/Episodes/partials/list.html' with page_obj=page_obj episodes=episodes %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block Scripts %}
+    <script>
+        var search_word = ''
+        var current_page = 1
+        var current_limit = 10
+
+        // CSRF TOKEN //
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+          function DeleteVideoConfirm(title, item_id) {
+            Swal.fire({
+                title: "هشدار ! ",
+                icon: 'warning',
+                text: "آیا از حذف فیلم آپلود شده قسمت ( " + title + " ) اطمینان دارید ؟ 🤔",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#00aced',
+                cancelButtonColor: '#e6294b',
+                confirmButtonText: 'حذف',
+                cancelButtonText: 'انصراف'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    DeleteVideo(item_id)
+                }
+            })
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Confirms //
+
+        function DeleteConfirm(name, item_id, is_last_item) {
+            Swal.fire({
+                title: "هشدار ! ",
+                icon: 'warning',
+                text: "آیا از حذف  ویدیو ( " + name + " ) اطمینان دارید ؟ 🤔",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#00aced',
+                cancelButtonColor: '#e6294b',
+                confirmButtonText: 'حذف',
+                cancelButtonText: 'انصراف'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Delete(item_id, is_last_item)
+                }
+            })
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////
+
+        function Paginate(page = 1) {
+            $.ajax({
+                url: "{% url 'episodes' %}?page=" + page + '&search=' + search_word + '&limit=' + limit,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#list").html(data)
+                    current_page = page
+                },
+            });
+        }
+
+        function Search() {
+            var search = $('#search').val()
+
+            current_page = 1
+
+            $.ajax({
+                url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search + '&limit=' + limit,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#list").html(data)
+                    search_word = search
+                },
+            });
+        }
+
+        function Limit() {
+            var limit = parseInt($("#limit option:selected").val())
+            current_page = 1
+
+            $.ajax({
+                url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search_word + '&limit=' + limit,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#list").html(data)
+                    current_limit = limit
+                },
+            });
+        }
+
+        function Delete(item_id, is_last_item) {
+
+            const csrftoken = getCookie('csrftoken');
+
+            if (is_last_item === 'yes') {
+                if (current_page !== 1) {
+                    current_page = current_page - 1
+                }
+            }
+
+            $.ajax({
+                url: "/admin/episodes/delete/" + item_id + '/',
+                headers: {'X-CSRFToken': csrftoken},
+                method: "DELETE",
+                async: true,
+                success: function (data) {
+
+                    if (data['status'] === 'OK') {
+
+                        $.ajax({
+                            url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
+                            method: "GET",
+                            async: true,
+                            success: function (data) {
+                                $("#list").html(data)
+                                Swal.fire({
+                                    title: "تبریک ! 🥳",
+                                    icon: 'success',
+                                    text: 'ویدیو مورد نظر با موفقیت حذف شد.',
+                                    type: "success",
+                                    cancelButtonColor: 'var(--primary)',
+                                    confirmButtonText: 'اوکی',
+                                })
+                            },
+                        });
+
+                    }
+
+                },
+            });
+
+        }
+
+        function DeleteVideo(item_id) {
+
+            const csrftoken = getCookie('csrftoken');
+
+            $.ajax({
+                url: "/admin/episodes/video/delete/" + item_id + '/',
+                headers: {'X-CSRFToken': csrftoken},
+                method: "DELETE",
+                data: {'current_page': current_page},
+                async: true,
+                success: function (data) {
+
+                    if (data['status'] === 'OK') {
+
+                        $.ajax({
+                            url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
+                            method: "GET",
+                            async: true,
+                            success: function (data) {
+                                $("#list").html(data)
+                                Swal.fire({
+                                    title: "تبریک ! 🥳",
+                                    icon: 'success',
+                                    text: 'حذف فیلم آپلود شده قسمت مورد نظر با موفقیت انجام شد.',
+                                    type: "success",
+                                    cancelButtonColor: 'var(--primary)',
+                                    confirmButtonText: 'اوکی',
+                                })
+                            },
+                        });
+
+                    }
+
+                },
+            });
+        }
+
+    </script>
+{% endblock %}

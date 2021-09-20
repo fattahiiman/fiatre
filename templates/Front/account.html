@@ -1,0 +1,92 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+{% load front_tags %}
+
+{% block title %} حساب کاربری {% endblock %}
+
+{% block content %}
+    <main>
+        <div class="container-fluid mt-5">
+            <div class="row justify-content-center" style="justify-content: center!important;">
+                <div class="col-md-4 mt-5" style="padding: 10px 5px; ">
+                    <div class="loin-card " style="text-align: right;
+                        color: #fff; background-image: linear-gradient( 180deg, #0e0e0e, #282929);padding: 65px 30px; border-radius: 10px; margin-right: -15px; margin-left: -15px;">
+                        <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+
+                            <div class="title-accont text-center">
+                                <p>
+                                    نام کاربری
+                                </p>
+                                <p>
+                                    {{ user.phone }}
+                                </p>
+                                <div class="type-sub">
+                                    <ul style="padding: 2px 0px; width: 100%;">
+                                        <li style=" padding: 8px 90px;">
+                                            <p>
+                                                <h7 style="margin-right: 5px;">نوع اشتراک:
+                                                    {% if user.get_subscription and user|check_subscription_expiration %}
+                                                        {{ user.get_subscription.type }}
+                                                    {% else %}
+                                                        بدون اشتراک
+                                                    {% endif %}</h7>
+                                            </p>
+                                            <!-- <p>
+                                                بالکن
+                                            </p> -->
+                                        </li>
+                                        <li>
+                                            <p>
+                                                وضعیت اشتراک
+                                            </p>
+                                            <p>
+                                                {% if user.get_subscription and user|check_subscription_expiration %}
+                                                    فعال
+                                                {% else %}
+                                                    غیر فعال
+                                                {% endif %}
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                تاریخ انقضا
+                                            </p>
+
+                                            <p>
+                                                {% if user.get_subscription and user|check_subscription_expiration %}
+                                                    {{ user| show_expiration | date:'H:i Y-m-d' }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </p>
+                                        </li>
+
+                                        <div class="button-subscription">
+                                            <button type="submit">
+                                                <h7 style="float: right; margin: auto 62px auto 0px; font-size: 18px;">
+                                                    خروج از حساب کاربری
+                                                </h7>
+
+                                            </button>
+                                            </a>
+                                        </div>
+                                        <div class="button-subscription">
+                                            <a href="{% url 'subscription-plans' %}" style="align-items: center; font-size: 18px;">
+                                                ارتقا یا تمدید
+
+                                            </a>
+                                        </div>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}

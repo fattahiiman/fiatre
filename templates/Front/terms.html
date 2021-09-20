@@ -1,0 +1,17 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+
+{% block title %} قوانین فیاتر {% endblock %}
+
+{% block content %}
+    <main>
+        <div class="main_background"><img src="https://fiatre.ir/wp-content/themes/fiatre.ir/image/main-background.jpg"
+                                          alt="main background">
+            <h1 style="margin-top: -800px;">{{ terms_title }}</h1></div>
+        <div class="page-container">
+            <article class="page-entry">
+                {{ terms_text | safe }}
+            </article>
+        </div>
+    </main>
+{% endblock %}

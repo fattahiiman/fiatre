@@ -1,0 +1,139 @@
+{% load static %}
+<div class="header">
+    <div class="header-left">
+        <a href="/" class="logo">
+            <img width="50" src="{% static 'admin_panel/assets/img/fita.jpg' %}"
+                 style="margin-top:1px !important;" alt="فیاتر">
+        </a>
+    </div>
+    <div class="page-title-box pull-left">
+        <h3>فیاتر</h3>
+    </div>
+    <a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
+    <ul class="nav navbar-nav navbar-right user-menu pull-right">
+        <li class="dropdown hidden-xs">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span
+                    class="badge bg-primary pull-right">3</span></a>
+            <div class="dropdown-menu notifications">
+                <div class="topnav-dropdown-header">
+                    <span>اعلانات</span>
+                </div>
+                <div class="drop-scroll">
+                    <ul class="media-list">
+                        <li class="media notification-message">
+                            <a href="activities.html">
+                                <div class="media-left">
+                                            <span class="avatar">
+												<img alt="John Doe" src="{% static 'admin_panel/assets/img/user.jpg' %}"
+                                                     class="img-responsive img-circle">
+											</span>
+                                </div>
+                                <div class="media-body">
+                                    <p class="noti-details"><span class="noti-title">امین صفرپور</span> افزودن کار جدید
+                                        <span class="noti-title">رزرو وقت بیمار</span></p>
+                                    <p class="noti-time"><span class="notification-time">4 دقیقه قبل</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media notification-message">
+                            <a href="activities.html">
+                                <div class="media-left">
+                                    <span class="avatar">V</span>
+                                </div>
+                                <div class="media-body">
+                                    <p class="noti-details"><span class="noti-title">برناردو گالوویز</span> نام کار را
+                                        تغییر داد <span class="noti-title">رزرو روزانه با دروازه پرداخت</span></p>
+                                    <p class="noti-time"><span class="notification-time">6 دقیقه قبل</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media notification-message">
+                            <a href="activities.html">
+                                <div class="media-left">
+                                    <span class="avatar">L</span>
+                                </div>
+                                <div class="media-body">
+                                    <p class="noti-details"><span class="noti-title">برناردو گالوویز</span> افزود <span
+                                            class="noti-title">امین صفرپور</span> و <span
+                                            class="noti-title">کلر مپس</span>برای پروژه <span class="noti-title">دکتر ماژول موجود</span>
+                                    </p>
+                                    <p class="noti-time"><span class="notification-time">8 دقیقه قبل</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media notification-message">
+                            <a href="activities.html">
+                                <div class="media-left">
+                                    <span class="avatar">G</span>
+                                </div>
+                                <div class="media-body">
+                                    <p class="noti-details"><span class="noti-title">برناردو گالوویز</span> تکمیل کار
+                                        <span class="noti-title">کنفرانس ویدیویی بیمار و دکتر</span></p>
+                                    <p class="noti-time"><span class="notification-time">12 دقیقه قبل</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media notification-message">
+                            <a href="activities.html">
+                                <div class="media-left">
+                                    <span class="avatar">V</span>
+                                </div>
+                                <div class="media-body">
+                                    <p class="noti-details"><span class="noti-title">برناردو گالوویز</span> افزودن کار
+                                        جدید <span class="noti-title">ماژول چت خصوصی</span></p>
+                                    <p class="noti-time"><span class="notification-time">2 دقیقه قبل</span></p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topnav-dropdown-footer">
+                    <a href="activities.html">مشاهده تمام اعلان ها</a>
+                </div>
+            </div>
+        </li>
+        <li class="dropdown hidden-xs">
+            <a href="javascript:;" id="open_msg_box" class="hasnotifications"><i class="fa fa-comment-o"></i> <span
+                    class="badge bg-primary pull-right">8</span></a>
+        </li>
+        <li class="dropdown">
+            <a href="profile.html" class="dropdown-toggle user-link" data-toggle="dropdown" title="Admin">
+                        <span class="user-img"><img class="img-circle"
+                                                    src="{% static 'admin_panel/assets/img/user.jpg' %}"
+                                                    width="40" alt="Admin">
+							<span class="status online"></span></span>
+                <span>
+                    {% if request.user.is_superuser %}
+                        مدیر سایت
+                    {% else %}
+                        کاربر ({{ request.user.phone }})
+                    {% endif %}
+                </span>
+
+                <i class="caret"></i>
+            </a>
+            <ul class="dropdown-menu">
+{#                <li><a href="profile.html">پروفایل من</a></li>#}
+{#                <li><a href="edit-profile.html">ویرایش پروفایل</a></li>#}
+                <li><a href="{% url 'settings' %}">تنظیمات</a></li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="خروج" class="btn btn-danger" style="width: 100%">
+                </form>
+            </ul>
+        </li>
+    </ul>
+    <div class="dropdown mobile-user-menu pull-right">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                class="fa fa-ellipsis-v"></i></a>
+        <ul class="dropdown-menu pull-right">
+{#            <li><a href="profile.html">پروفایل من</a></li>#}
+{#            <li><a href="edit-profile.html">ویرایش پروفایل</a></li>#}
+            <li><a href="{% url 'settings' %}">تنظیمات</a></li>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="خروج" class="btn btn-danger" style="width: 100%">
+            </form>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+
+{% block title %} پاسخ به سوالات متداول {% endblock %}
+
+{% block content %}
+    <main style="margin-top: 70px !important;">
+        <div class="main_background" style=" margin-top: -300px;"><img
+                src="https://fiatre.ir/wp-content/themes/fiatre.ir/image/main-background.jpg" alt="main background">
+        </div>
+
+        <div class="container mt-5" style="margin-top: 100px;">
+            <div class="row justify-content-center">
+                <div class="col-md-12 mt-5">
+
+                    <div class="page-container">
+                        <article class="page-entry">
+                            {{ faq_text | safe }}
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}

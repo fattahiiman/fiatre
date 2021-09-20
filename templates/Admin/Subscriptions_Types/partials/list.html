@@ -1,0 +1,73 @@
+{% load category_tags %}
+<span id="list">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ردیف</th>
+            <th>عنوان</th>
+            <th>مدت زمان</th>
+            <th>قیمت</th>
+            <th>نوع اشتراک</th>
+            <th>تاریخ ثبت</th>
+            <th>اعمال</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for item in types %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+
+                <td>{{ item.name }}</td>
+
+                <td>{{ item.time }} ماهه</td>
+
+                <td>{{ item.price }} تومان</td>
+
+                <td>
+                        <span class="{% if item.type == 'full' %}
+                               label label-success-border rounded
+                         {% else %}
+                                 label label-danger-border rounded
+                         {% endif %}">
+
+                          {% if item.type == 'full' %}
+                              کامل
+                          {% else %}
+                              فقط تماشا
+                          {% endif %}
+                        </span>
+                </td>
+
+                <td>{{ item.created_at }}</td>
+
+                <td>
+                    <div class="buttons ">
+                        <form id="delete_form_{{ item.id }}" action="{% url 'types-delete' item.id %}"
+                              method="post">
+                            {% csrf_token %}
+
+                            <a href="{% url 'types-update' item.id %}"
+                               class="btn btn-primary btn-action mr-1"
+                               data-toggle="tooltip" title=""
+                               data-original-title="ویرایش"><i
+                                    class="fas fa-pencil-alt"></i><i
+                                    class="fa fa-pencil"> </i> </a>
+                            <button type="button"
+                                    data-original-title="حذف"
+                                    data-toggle="tooltip"
+                                    onclick="return DeleteConfirm('{{ item.name }}' , {{ item.id }}, '{{ page_obj|is_last_item:types }}')"
+                                    class="delete_button btn btn-danger btn-action"><i
+                                    class="fa fa-trash"> </i>
+                            </button>
+
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% include 'Admin/pagination.html' with page_obj=page_obj %}
+</span>

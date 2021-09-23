@@ -69,9 +69,6 @@ class EpisodesUpdate(UpdateView):
         request.POST._mutable = True
         request.POST['slug'] = slugify(request.POST['slug'] , allow_unicode=True)
 
-        print('eeeeeeeeeeeeeeeeeeeee')
-        print(request.POST['title'])
-
         messages.success(request, 'ویدیو مورد نظر با موفقیت ویرایش شد.')
         return super().post(request, args, kwargs)
 

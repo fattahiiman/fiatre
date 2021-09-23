@@ -8,6 +8,7 @@ urlpatterns = [
     path('faq/' , Faq.as_view() , name='faq'),
     path('categories/<slug>/' , Cat.as_view() , name='category'),
     path('episodes/<slug>/' , EpisodeDetail.as_view() , name='episode'),
+    path('episodes/increase/view_count/<slug>/' , EpisodesViewCountIncreaseView.as_view() , name='episode-increase-view'),
 
     path('account/' , Account.as_view() , name='account'),
 

@@ -17,6 +17,7 @@ from dateutil.relativedelta import relativedelta
 from django.db.models import Q
 from Gateway.views import CalculateCouponAmount
 from .helpers import PersianizeAmount
+from django.views.generic import UpdateView
 
 def paginate(paginator, page , search_word=None):
     try:
@@ -255,10 +256,6 @@ class EpisodeDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        self.object.view_count += 1
-        self.object.save()
-
         context['related_episodes'] = self.object.category.episodes.exclude(slug=self.kwargs['slug'])
         return context
 
@@ -348,3 +345,18 @@ class SubscriptionCheckCoupon(LoginRequiredMixin, View):
 
         else:
             raise Http404
+
+
+## Increase View CountiewCo
+class EpisodesViewCountIncreaseView(UpdateView):
+    model = Episode
+    success_url = '/'
+    fields = ['view_count']
+
+    def post(self, request, *args, **kwargs):
+        object = self.get_object()
+        object.view_count += 1
+        object.save()
+
+        return JsonResponse({'status' : 'OK'}, safe=False)
+

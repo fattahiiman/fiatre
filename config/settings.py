@@ -25,7 +25,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 # Application definition
 
@@ -149,7 +149,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 if config("DEBUG", cast=bool):
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static')
     ]

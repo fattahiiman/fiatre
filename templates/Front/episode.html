@@ -5,177 +5,220 @@
 {% block title %} {{ episode.title }} {% endblock %}
 
 {% block Styles %}
-    <style> .r1_iframe_embed {
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-        height: auto;
-        padding-top: 25.25%;
-    }
+<style> .r1_iframe_embed {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    padding-top: 25.25%;
+}
 
-    .r1_iframe_embed iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    } </style>
+.r1_iframe_embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+} </style>
 {% endblock %}
 
 {% block content %}
-    <main>
-        <div class="main_background"><img src="https://fiatre.ir/wp-content/themes/fiatre.ir/image/main-background.jpg"
-                                          alt="main background"></div>
-        <div class="main_container">
-            <article class="film-entry">
-                <div class="film-entry-row">
-                    <div class="film-entry-left">
-                        <div class="film-thumbnail">
-                            <img data-lazyloaded="1"
-                                 src="{{ episode.image.url }}"
-                                 width="400" height="550"
-                                 data-src="{{ episode.image.url }}"
-                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image litespeed-loaded"
-                                 alt="" loading="lazy"
-                                 data-srcset="{{ episode.image.url }} 400w, {{ episode.image.url }} 218w"
-                                 data-sizes="(max-width: 400px) 100vw, 400px" sizes="(max-width: 400px) 100vw, 400px"
-                                 srcset="{{ episode.image.url }} 400w, {{ episode.image.url }} 218w"
-                                 data-was-processed="true"></div>
+<main>
+    <div class="main_background"><img src="https://fiatre.ir/wp-content/themes/fiatre.ir/image/main-background.jpg"
+                                      alt="main background"></div>
+    <div class="main_container">
+        <article class="film-entry">
+            <div class="film-entry-row">
+                <div class="film-entry-left">
+                    <div class="film-thumbnail">
+                        <img data-lazyloaded="1"
+                             src="{{ episode.image.url }}"
+                             width="400" height="550"
+                             data-src="{{ episode.image.url }}"
+                             class="attachment-post-thumbnail size-post-thumbnail wp-post-image litespeed-loaded"
+                             alt="" loading="lazy"
+                             data-srcset="{{ episode.image.url }} 400w, {{ episode.image.url }} 218w"
+                             data-sizes="(max-width: 400px) 100vw, 400px" sizes="(max-width: 400px) 100vw, 400px"
+                             srcset="{{ episode.image.url }} 400w, {{ episode.image.url }} 218w"
+                             data-was-processed="true"></div>
 
-                        {% if episode.episode %}
-                            <h2 class="film-en-name">قسمت {{ episode.episode }}</h2>
-                        {% else %}
-                            <h2 class="film-en-name">فیلم {{ episode.title }}</h2>
-                        {% endif %}
-                        {% if request.user.is_authenticated %}
-                            {% if request.user.get_subscription and request.user|check_subscription_expiration %}
-                                <a target="_blank" class="view_video" href="{{ episode.get_video_json_url }}">
-                                    <button class="view_video">نمایش ویدئو در صفحه جدید</button>
-                                </a>
-                                {% if request.user.get_subscription.type.get_type == "full" %}
-                                    <a target="_blank" class="view_video" href="{{ episode.get_video_mp4_url }}">
-                                        <button class="view_video">دانلود ویدئو</button>
-                                    </a>
-                                {% endif %}
-                            {% else %}
-                                <button class="view_video"
-                                        onclick="document.location.href='{% url 'subscription-plans' %}'">خرید اشتراک
-                                    برای تماشا و دانلود
-                                </button>
+                    {% if episode.episode %}
+                    <h2 class="film-en-name">قسمت {{ episode.episode }}</h2>
+                    {% else %}
+                    <h2 class="film-en-name">فیلم {{ episode.title }}</h2>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.get_subscription and request.user|check_subscription_expiration %}
+                    <a target="_blank" class="view_video" href="{{ episode.get_video_json_url }}">
+                        <button class="view_video">نمایش ویدئو در صفحه جدید</button>
+                    </a>
+                    {% if request.user.get_subscription.type.get_type == "full" %}
+                    <a target="_blank" class="view_video" href="{{ episode.get_video_mp4_url }}">
+                        <button class="view_video">دانلود ویدئو</button>
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <button class="view_video"
+                            onclick="document.location.href='{% url 'subscription-plans' %}'">خرید اشتراک
+                        برای تماشا و دانلود
+                    </button>
+                    {% endif %}
+                    {% else %}
+                    <button class="view_video"
+                            onclick="document.location.href='{% url 'register' %}'">ثبت نام و خرید اشتراک
+                    </button>
+                    {% endif %}
+                </div>
+                <div class="film-information">
+                    <div class="film-header"><h1 class="film-title">{{ episode.title }}</h1>
+                        <div class="film-rating">
+                            <div class="film-views">
+                                <svg class="icon icon-tabler icon-tabler-eye" width="18" height="18"
+                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="#fd6500" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <circle cx="12" cy="12" r="2"></circle>
+                                    <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7"></path>
+                                </svg>
+                                <span id="view_count">{{ episode.view_count }}</span>
+                                <span class="text">بازدید</span></div>
+
+                            {% if episode.type == 'movie' %}
+                            <div class="film-imdb"><span class="point">{{ episode.imdb_score }}</span> <span
+                                    class="total"> <svg
+                                    class="icon icon-tabler icon-tabler-star" width="18" height="18"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="#f5c518" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round"> <path stroke="none"
+                                                                                          d="M0 0h24v24H0z"
+                                                                                          fill="none"></path> <path
+                                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path> </svg>10/</span>
+                            </div>
                             {% endif %}
-                        {% else %}
-                            <button class="view_video"
-                                    onclick="document.location.href='{% url 'register' %}'">ثبت نام و خرید اشتراک
-                            </button>
-                        {% endif %}
+
+                        </div>
                     </div>
-                    <div class="film-information">
-                        <div class="film-header"><h1 class="film-title">{{ episode.title }}</h1>
-                            <div class="film-rating">
-                                <div class="film-views">
-                                    <svg class="icon icon-tabler icon-tabler-eye" width="18" height="18"
-                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="#fd6500" fill="none"
-                                         stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <circle cx="12" cy="12" r="2"></circle>
-                                        <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7"></path>
-                                    </svg>
-                                    {{ episode.view_count }}
-                                    <span class="text">بازدید</span></div>
+                    <div class="film-meta-up">
+                        <ul>
+                            {% if episode.type == 'movie' %}
+                            <li>{{ episode.genre }}</li>
+                            {% else %}
+                            <li>آموزش عمومی {{ episode.category }}</li>
+                            {% endif %}
+                            <li>{{ episode.time }} دقیقه</li>
+                            {% if episode.type == 'movie' %}
+                            <li class="release">{{ episode.construction_year }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
 
-                                {% if episode.type == 'movie' %}
-                                    <div class="film-imdb"><span class="point">{{ episode.imdb_score }}</span> <span
-                                            class="total"> <svg
-                                            class="icon icon-tabler icon-tabler-star" width="18" height="18"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#f5c518" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round"> <path stroke="none"
-                                                                                                  d="M0 0h24v24H0z"
-                                                                                                  fill="none"></path> <path
-                                            d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path> </svg>10/</span>
-                                    </div>
-                                {% endif %}
+                    {% if episode.type == 'movie' %}
+                    <div class="film-meta">
+                        <ul>
+                            <li><span class="meta-label">کارگردان&nbsp; : &nbsp;</span>
+                                <div class="meta-value">{{ episode.director }}</div>
+                            </li>
+                            <li><span class="meta-label">نویسنده&nbsp; : &nbsp;</span>
+                                <div class="meta-value">{{ episode.writer }}</div>
+                            </li>
+                            <li><span class="meta-label">بازیگران&nbsp; : &nbsp;</span>
+                                <div class="meta-value">
+                                    {{ episode.actors }}
+                                </div>
+                            </li>
+                            <li><span class="meta-label">محصول کشور&nbsp; : &nbsp;</span>
+                                <div class="meta-value">{{ episode.country }}</div>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
 
-                            </div>
+                    <div class="single-film-abstract"><h3 class="title"><span>مختصری درباره فیلم</span></h3>
+                        <div class="clear"></div>
+                        <p> {{ episode.description }}</p>
+                        <br>
+                        <br>
+
+                        {% if request.user.is_authenticated and request.user.get_subscription and request.user|check_subscription_expiration %}
+                        <div class="vid r1_iframe_embed">
+                            <video controls width="100%">
+                                <source src="{{ episode.get_video_mp4_url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
-                        <div class="film-meta-up">
-                            <ul>
-                                {% if episode.type == 'movie' %}
-                                    <li>{{ episode.genre }}</li>
-                                {% else %}
-                                    <li>آموزش عمومی {{ episode.category }}</li>
-                                {% endif %}
-                                <li>{{ episode.time }} دقیقه</li>
-                                {% if episode.type == 'movie' %}
-                                    <li class="release">{{ episode.construction_year }}</li>
-                                {% endif %}
-                            </ul>
-                        </div>
-
-                        {% if episode.type == 'movie' %}
-                            <div class="film-meta">
-                                <ul>
-                                    <li><span class="meta-label">کارگردان&nbsp; : &nbsp;</span>
-                                        <div class="meta-value">{{ episode.director }}</div>
-                                    </li>
-                                    <li><span class="meta-label">نویسنده&nbsp; : &nbsp;</span>
-                                        <div class="meta-value">{{ episode.writer }}</div>
-                                    </li>
-                                    <li><span class="meta-label">بازیگران&nbsp; : &nbsp;</span>
-                                        <div class="meta-value">
-                                            {{ episode.actors }}
-                                        </div>
-                                    </li>
-                                    <li><span class="meta-label">محصول کشور&nbsp; : &nbsp;</span>
-                                        <div class="meta-value">{{ episode.country }}</div>
-                                    </li>
-                                </ul>
-                            </div>
                         {% endif %}
 
-                        <div class="single-film-abstract"><h3 class="title"><span>مختصری درباره فیلم</span></h3>
-                            <div class="clear"></div>
-                            <p> {{ episode.description }}</p>
-                            <br>
-                            <br>
-
-                            {% if request.user.is_authenticated and request.user.get_subscription and request.user|check_subscription_expiration %}
-                                <div class="vid r1_iframe_embed">
-                                    <video controls width="100%">
-                                        <source src="{{ episode.get_video_mp4_url }}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </div>
-                            {% endif %}
-
-                        </div>
                     </div>
                 </div>
-                <div class="clear"></div>
-                <section class="film-related-row" style="width: 100%;">
-                    <h4 class="film-related-row-title" style="text-align: right;">ویدئوهای مرتبط</h4>
+            </div>
+            <div class="clear"></div>
+            <section class="film-related-row" style="width: 100%;">
+                <h4 class="film-related-row-title" style="text-align: right;">ویدئوهای مرتبط</h4>
 
-                    {% for item in related_episodes %}
-                        <div class="film-related-box">
-                            <a href="{% url 'episode' item.slug %}">
-                                <figure class="film-related-thumbnail"><img data-lazyloaded="1"
-                                                                            src="{{ item.image.url }}"
-                                                                            width="400" height="550"
-                                                                            data-src="{{ item.image.url }}"
-                                                                            class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-                                                                            alt="" loading="lazy"
-                                                                            data-srcset="{{ item.image.url }} 400w, https://fiatre.ir/wp-content/uploads/2021/05/Rosencrantz-and-Guildenstern-Are-Dead-218x300.jpg 218w"
-                                                                            data-sizes="(max-width: 400px) 100vw, 400px">
-                                </figure>
-                                <div class="film-related-title">{{ item.title }}</div>
-                            </a>
-                        </div>
-                    {% endfor %}
-                </section>
-            </article>
-        </div>
+                {% for item in related_episodes %}
+                <div class="film-related-box">
+                    <a href="{% url 'episode' item.slug %}">
+                        <figure class="film-related-thumbnail"><img data-lazyloaded="1"
+                                                                    src="{{ item.image.url }}"
+                                                                    width="400" height="550"
+                                                                    data-src="{{ item.image.url }}"
+                                                                    class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+                                                                    alt="" loading="lazy"
+                                                                    data-srcset="{{ item.image.url }} 400w, https://fiatre.ir/wp-content/uploads/2021/05/Rosencrantz-and-Guildenstern-Are-Dead-218x300.jpg 218w"
+                                                                    data-sizes="(max-width: 400px) 100vw, 400px">
+                        </figure>
+                        <div class="film-related-title">{{ item.title }}</div>
+                    </a>
+                </div>
+                {% endfor %}
+            </section>
+        </article>
+    </div>
 
-        <div class="clear"></div>
+    <div class="clear"></div>
 
-    </main>
+</main>
+{% endblock %}
+
+{% block Scripts %}
+<script>
+    // CSRF TOKEN //
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function IncreaseViewCount() {
+        const csrftoken = getCookie('csrftoken');
+
+        $.ajax({
+            url: "{% url 'episode-increase-view' episode.slug %}",
+            headers: {'X-CSRFToken': csrftoken},
+            method: "POST",
+            async: true,
+            success: function (data) {
+                let view_count = parseInt($('#view_count').text())
+                view_count++;
+                $('#view_count').text(view_count);
+            },
+        });
+    }
+
+    $("video").on("ended", function (e) {
+        IncreaseViewCount()
+    });
+</script>
 {% endblock %}

@@ -50,7 +50,7 @@
                     {% endif %}
                     {% if request.user.is_authenticated %}
                     {% if request.user.get_subscription and request.user|check_subscription_expiration %}
-                    <a target="_blank" class="view_video" href="{{ episode.get_video_json_url }}">
+                    <a target="_blank" class="view_video" href="{{ episode.get_video_mp4_url }}">
                         <button class="view_video">نمایش ویدئو در صفحه جدید</button>
                     </a>
                     {% if request.user.get_subscription.type.get_type == "full" %}

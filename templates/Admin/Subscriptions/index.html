@@ -1,6 +1,6 @@
 {% extends 'Layouts/admin-master.html' %}
 
-{% block title %} لیست کد تخفیف {% endblock %}
+{% block title %} لیست مشترکین {% endblock %}
 
 {% block content %}
 
@@ -24,13 +24,13 @@
         <div class="col-lg-12">
             <div class="card-box">
                 <div class="card-block">
-                    <h4 class="card-title">لیست کد تخفیف</h4>
+                    <h4 class="card-title">لیست مشترکین</h4>
 
                     {% include 'Admin/search_box.html' with page_obj=page_obj %}
 
-                    <a class="btn btn-primary pull-right" href="{% url 'coupons-create' %}">افزودن کد تخفیف جدید</a>
+                    <a class="btn btn-primary pull-right" href="{% url 'coupons-create' %}">افزودن مشترک جدید</a>
 
-                    {% include 'Admin/Coupons/partials/list.html' with page_obj=page_obj coupons=coupons %}
+                    {% include 'Admin/Subscriptions/partials/list.html' with page_obj=page_obj subscriptions=subscriptions %}
 
                 </div>
             </div>
@@ -65,13 +65,13 @@
 
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Confirms //
 
+        // Confirms //
         function DeleteConfirm(code, item_id, is_last_item) {
             Swal.fire({
                 title: "هشدار ! ",
                 icon: 'warning',
-                text: "آیا از حذف  کد تخفیف ( " + code + " ) اطمینان دارید ؟ 🤔",
+                text: "آیا از حذف  مشترک ( " + code + " ) اطمینان دارید ؟ 🤔",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#00aced',
@@ -89,7 +89,7 @@
 
         function Paginate(page = 1) {
             $.ajax({
-                url: "{% url 'coupons' %}?page=" + page + '&search=' + search_word + '&limit=' + current_limit,
+                url: "{% url 'subscriptions' %}?page=" + page + '&search=' + search_word + '&limit=' + current_limit,
                 method: "GET",
                 async: true,
                 success: function (data) {
@@ -105,7 +105,7 @@
             current_page = 1
 
             $.ajax({
-                url: "{% url 'coupons' %}?page=" + current_page + '&search=' + search + '&limit=' + current_limit,
+                url: "{% url 'subscriptions' %}?page=" + current_page + '&search=' + search + '&limit=' + current_limit,
                 method: "GET",
                 async: true,
                 success: function (data) {
@@ -120,7 +120,7 @@
             current_page = 1
 
             $.ajax({
-                url: "{% url 'coupons' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
+                url: "{% url 'subscriptions' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
                 method: "GET",
                 async: true,
                 success: function (data) {
@@ -141,7 +141,7 @@
             }
 
             $.ajax({
-                url: "/admin/coupons/delete/" + item_id + '/',
+                url: "/admin/subscriptions/delete/" + item_id + '/',
                 headers: {'X-CSRFToken': csrftoken},
                 method: "DELETE",
                 async: true,
@@ -150,7 +150,7 @@
                     if (data['status'] === 'OK') {
 
                         $.ajax({
-                            url: "{% url 'coupons' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
+                            url: "{% url 'subscriptions' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
                             method: "GET",
                             async: true,
                             success: function (data) {
@@ -158,7 +158,7 @@
                                 Swal.fire({
                                     title: "تبریک ! 🥳",
                                     icon: 'success',
-                                    text: 'کد تخفیف مورد نظر با موفقیت حذف شد.',
+                                    text: 'مشترک مورد نظر با موفقیت حذف شد.',
                                     type: "success",
                                     cancelButtonColor: 'var(--primary)',
                                     confirmButtonText: 'اوکی',

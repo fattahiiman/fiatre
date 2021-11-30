@@ -6,9 +6,9 @@ from Subscription.models import Subscription
 User = get_user_model()
 
 def admin_dashboard(request):
-    subscriptions = Subscription.objects.all()
+    users = Subscription.objects.filter(status=True).distinct()
     subscriptions_total_amount = 0
-    for item in subscriptions:
+    for item in users:
         subscriptions_total_amount += item.type.price
 
     context = {

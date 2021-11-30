@@ -130,6 +130,16 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">تعداد بازدید</label>
+                             <div class="col-md-10">
+                                    <input type="number" name="view_count"
+                                           class="form-control rounded"
+                                           placeholder="تعداد بازدید را وارد کنید"
+                                           value="{{ form.view_count.value }}">
+                                </div>
+                        </div>
+
                         <div id="movie_fields">
                             <div class="form-group">
                                 <label class="control-label col-lg-2">امتیاز imdb</label>
@@ -196,7 +206,8 @@
                                     <input type="text" name="construction_year"
                                            class="form-control rounded"
                                            placeholder="سال ساخت را وارد کنید"
-                                           value="{% if form.construction_year.value %}{{ form.construction_year.value }}{% endif %}">
+                                           value="
+                                                   {% if form.construction_year.value %}{{ form.construction_year.value }}{% endif %}">
                                 </div>
                             </div>
                         </div>

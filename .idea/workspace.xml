@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="867fe172-ca64-4c4d-ae7e-5d43a4cd8169" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/Categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/Categories/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/Coupons/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/Coupons/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/Episodes/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/Episodes/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/Section/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/Section/sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/Settings/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/Settings/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/Subscriptions_Types/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/Subscriptions_Types/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/Users/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/Users/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Front/episode.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Front/episode.html" afterDir="false" />
-    </list>
+    <list default="true" id="867fe172-ca64-4c4d-ae7e-5d43a4cd8169" name="Changes" comment="fix bugs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,8 +77,16 @@
       <option name="presentableId" value="Default" />
       <updated>1638274587464</updated>
       <workItem from="1638274595192" duration="141000" />
-      <workItem from="1638274756608" duration="9901000" />
+      <workItem from="1638274756608" duration="10285000" />
     </task>
+    <task id="LOCAL-00001" summary="fix bugs">
+      <created>1638306171060</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638306171060</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,5 +102,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bugs" />
   </component>
 </project>

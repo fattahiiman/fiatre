@@ -5,3 +5,8 @@ from .models import *
 class PasswordResetAdmin(admin.ModelAdmin):
     list_display = ['user', 'code' , 'created_at', 'updated_at']
     readonly_fields = ['created_at', 'updated_at']
+
+@admin.register(LoginCode)
+class LoginCodeAdmin(admin.ModelAdmin):
+    list_display = ['user', 'code' , 'created_at', 'updated_at']
+    readonly_fields = ['created_at', 'updated_at']

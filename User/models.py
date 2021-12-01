@@ -53,3 +53,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             return True
         else:
             return False
+
+    def sms_disposable_code(self , phone, code):
+        pass

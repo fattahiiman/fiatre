@@ -13,4 +13,4 @@ class CustomModel(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ('-updated_at',)
+        ordering = ['-created_at']

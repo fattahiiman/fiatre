@@ -28,7 +28,7 @@
 
                     {% include 'Admin/search_box.html' with page_obj=page_obj %}
 
-                    <a class="btn btn-primary pull-right" href="{% url 'coupons-create' %}">افزودن مشترک جدید</a>
+                    <a class="btn btn-primary pull-right" href="{% url 'subscriptions-create' %}">افزودن مشترک جدید</a>
 
                     {% include 'Admin/Subscriptions/partials/list.html' with page_obj=page_obj subscriptions=subscriptions %}
 

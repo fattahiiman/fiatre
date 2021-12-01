@@ -4,7 +4,7 @@ from Setting.models import Setting
 def static_footer_header_variables(request):
     settings = {}
 
-    if request.user.is_watching:
+    if request.user.is_authenticated and request.user.is_watching:
         request.user.is_watching = False
         request.user.save()
 

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="867fe172-ca64-4c4d-ae7e-5d43a4cd8169" name="Changes" comment="fix bugs">
+    <list default="true" id="867fe172-ca64-4c4d-ae7e-5d43a4cd8169" name="Changes" comment="cgv">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Episode/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Episode/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Episode/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Episode/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/Episodes/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/Episodes/edit.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +22,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="21dcpLIbWmDNouP4sxSV6FEWDcf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -122,6 +119,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix bugs" />

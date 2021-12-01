@@ -4,6 +4,8 @@ from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 import time
 from Category.models import Category
+from utils.models import CustomModel
+
 
 def upload_image(instance , filename):
     path = 'episodes/images/' + slugify(instance.title , allow_unicode=True)
@@ -19,7 +21,7 @@ def upload_video(instance , filename):
     return path + '/' + name
 
 
-class Episode(models.Model):
+class Episode(CustomModel):
     title = models.CharField(max_length=50, verbose_name='عنوان')
     slug = models.SlugField(verbose_name='نامک' , allow_unicode=True , unique=True)
     time = models.IntegerField(verbose_name='زمان')
@@ -44,9 +46,6 @@ class Episode(models.Model):
     image = models.ImageField(verbose_name='عکس', upload_to=upload_image)
 
     video = models.TextField(verbose_name='لینک دانلود (mp4)' , null=True , blank=True)
-
-    created_at = models.DateTimeField(verbose_name='تاریخ ثبت', auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name='تاریخ ویرایش', auto_now=True)
 
     class Meta:
         verbose_name = 'فیلم'

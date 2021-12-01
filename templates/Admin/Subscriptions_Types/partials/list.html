@@ -1,4 +1,4 @@
-{% load category_tags %}
+{% load category_tags public_tags %}
 <span id="list">
     <table class="table table-hover">
         <thead>
@@ -39,7 +39,7 @@
                         </span>
                 </td>
 
-                <td>{{ item.created_at }}</td>
+                <td>{{ item.created_at|jdate }}</td>
 
                 <td>
                     <div class="buttons ">

@@ -1,11 +1,9 @@
 from django.db import models
+from utils.models import CustomModel
 
-class Setting(models.Model):
+class Setting(CustomModel):
     key = models.CharField(verbose_name='کلید' , max_length=255 , unique=True)
     value = models.TextField(verbose_name='مقدار')
-
-    created_at = models.DateTimeField(verbose_name='تاریخ ثبت', auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name='تاریخ ویرایش', auto_now=True)
 
     class Meta:
         verbose_name = 'تنظیمات'

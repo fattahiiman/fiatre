@@ -1,12 +1,11 @@
 from django.db import models
+from utils.models import CustomModel
 
-class Coupon(models.Model):
+
+class Coupon(CustomModel):
     code = models.CharField(max_length=255 , verbose_name='کد' , unique=True)
     time = models.IntegerField(default=1 , verbose_name='مدت زمان استفاده (ماه)')
     percent = models.IntegerField(verbose_name='درصد تخفیف')
-
-    created_at = models.DateTimeField(verbose_name='تاریخ ثبت', auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name='تاریخ ویرایش', auto_now=True)
 
     class Meta:
         verbose_name = 'کد تخفیف'

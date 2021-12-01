@@ -16,4 +16,7 @@ urlpatterns = [
     path('subscription/plans/' , SubscriptionPlans.as_view() , name='subscription-plans'),
     path('subscription/buy/<slug>/' , SubscriptionBuy.as_view() , name='subscription-buy'),
     path('subscription/coupon/check/' , SubscriptionCheckCoupon.as_view() , name='subscription-coupon-check'),
+
+    ## User Watchinh ##
+    path('watching/status/' , WatchingStatusChangeView.as_view() , name='watching-status-change-view'),
 ]

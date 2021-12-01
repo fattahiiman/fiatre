@@ -1,5 +1,5 @@
 from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from Category.models import Category
 from Coupon.models import Coupon
 from Setting.models import Setting
@@ -18,6 +18,9 @@ from django.db.models import Q
 from Gateway.views import CalculateCouponAmount
 from .helpers import PersianizeAmount
 from django.views.generic import UpdateView
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 def paginate(paginator, page , search_word=None):
     try:
@@ -360,3 +363,13 @@ class EpisodesViewCountIncreaseView(UpdateView):
 
         return JsonResponse({'status' : 'OK'}, safe=False)
 
+
+## Watching
+class WatchingStatusChangeView(View):
+    success_url = '/'
+
+    def post(self, request, *args, **kwargs):
+        request.user.is_watching = not request.user.is_watching
+        request.user.save()
+
+        return JsonResponse({'status' : 'OK'}, safe=False)

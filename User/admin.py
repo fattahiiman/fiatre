@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
     model = UserModel
-    list_display = ['phone' , 'is_superuser' , 'is_active']
+    list_display = ['phone' , 'date_joined' , 'last_login' , 'is_superuser' , 'is_active' , 'is_staff' , 'is_watching']
     add_fieldsets = UserAdmin.add_fieldsets + (
         (None, {'fields': ('phone' , )}),
     )

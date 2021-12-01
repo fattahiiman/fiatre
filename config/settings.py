@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     ## Admin ##
+    'utils',
     'Admin',
     'User',
     'Category',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     ## Extra Packages ##
     'django_cleanup.apps.CleanupConfig',
     'admin_honeypot',
+    'django_jalali',
 ]
 
 MIDDLEWARE = [

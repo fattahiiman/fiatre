@@ -78,11 +78,37 @@ class Subscriptions_Types_Delete(DeleteView):
 
 ## Subscriptions_Users ##
 
+class SubscriptionsList(ListView):
+    model = Subscription
+    context_object_name = 'subscriptions'
+    paginate_by = settings.PAGINATION_NUMBER
+    ordering = ['-created_at']
+
+    def get_template_names(self):
+        template_name = 'Admin/Subscriptions/index.html'
+        if self.request.is_ajax():
+            template_name = 'Admin/Subscriptions/partials/list.html'
+        return template_name
+
+    def get_queryset(self):
+        search_word = self.request.GET.get('search')
+        limit = self.request.GET.get('limit')
+
+        object_list = self.model.objects.all()
+
+        if search_word:
+            object_list = object_list.filter(user__phone__icontains=search_word)
+
+        if limit:
+            self.paginate_by = int(self.request.GET.get('limit'))
+        return object_list
+
+
 class Subscriptions_Create(CreateView):
     model = Subscription
     template_name = 'Admin/Subscriptions/create.html'
     form_class = SubscriptionForm
-    success_url = reverse_lazy('users')
+    success_url = reverse_lazy('subscriptions')
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -97,6 +123,8 @@ class Subscriptions_Create(CreateView):
         return data
 
     def post(self, request, *args, **kwargs):
+        request.POST._mutable = True
+        request.POST['status'] = True
         messages.success(request, 'اشتراک مورد نظر با موفقیت به کاربر الحالق شد.')
         return super().post(request, args, kwargs)
 
@@ -105,7 +133,7 @@ class Subscriptions_Update(UpdateView):
     model = Subscription
     form_class = SubscriptionForm
     template_name = 'Admin/Subscriptions/edit.html'
-    success_url = reverse_lazy('users')
+    success_url = reverse_lazy('subscriptions')
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -121,7 +149,7 @@ class Subscriptions_Update(UpdateView):
 class Subscriptions_Delete(DeleteView):
     model = Subscription
     template_name = 'Admin/Subscriptions/delete.html'
-    success_url = reverse_lazy('users')
+    success_url = reverse_lazy('subscriptions')
 
     def dispatch(self, *args, **kwargs):
         resp = super(Subscriptions_Delete, self).dispatch(*args, **kwargs)

@@ -107,7 +107,7 @@
 
         function Paginate(page = 1) {
             $.ajax({
-                url: "{% url 'episodes' %}?page=" + page + '&search=' + search_word + '&limit=' + limit,
+                url: "{% url 'episodes' %}?page=" + page + '&search=' + search_word + '&limit=' + current_limit,
                 method: "GET",
                 async: true,
                 success: function (data) {
@@ -123,7 +123,7 @@
             current_page = 1
 
             $.ajax({
-                url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search + '&limit=' + limit,
+                url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search + '&limit=' + current_limit,
                 method: "GET",
                 async: true,
                 success: function (data) {
@@ -138,7 +138,7 @@
             current_page = 1
 
             $.ajax({
-                url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search_word + '&limit=' + limit,
+                url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
                 method: "GET",
                 async: true,
                 success: function (data) {

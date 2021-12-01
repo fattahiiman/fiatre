@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from utils.models import CustomModel
 
 User = get_user_model()
-
 
 class Type(models.Model):
     name = models.CharField(max_length=50, verbose_name='عنوان')

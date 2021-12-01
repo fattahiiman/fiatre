@@ -23,7 +23,7 @@ class Episode(models.Model):
     title = models.CharField(max_length=50, verbose_name='عنوان')
     slug = models.SlugField(verbose_name='نامک' , allow_unicode=True , unique=True)
     time = models.IntegerField(verbose_name='زمان')
-    episode = models.IntegerField(verbose_name='قسمت' , null=True , blank=True)
+    episode = models.CharField(verbose_name='قسمت' , max_length=255 , null=True , blank=True)
     teacher = models.CharField(max_length=100, verbose_name='استاد' , null=True , blank=True)
     view_count = models.IntegerField(default=0 , verbose_name='تعداد بازدید' , null=True , blank=True)
     description = models.TextField(verbose_name='توضیحات')

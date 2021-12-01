@@ -4,8 +4,8 @@ from .models import *
 
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ['user', 'type' , 'created_at', 'updated_at']
-    readonly_fields = ['created_at', 'updated_at']
+    list_display = ['user', 'type']
+    # readonly_fields = ['created_at', 'updated_at']
 
 @admin.register(Type)
 class TypeAdmin(admin.ModelAdmin):

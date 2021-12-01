@@ -4,6 +4,10 @@ from Setting.models import Setting
 def static_footer_header_variables(request):
     settings = {}
 
+    if request.user.is_watching:
+        request.user.is_watching = False
+        request.user.save()
+
     settings['advertise_title'] = Setting.objects.get_or_create(
         key='advertise_title',
         defaults={'key': 'advertise_title',

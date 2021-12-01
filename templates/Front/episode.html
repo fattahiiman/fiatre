@@ -144,7 +144,7 @@
                             <br>
 
                             {% if user.is_authenticated and user.get_subscription and user|check_subscription_expiration %}
-                                {% if not user.is_watching %}
+                                {% if not user.is_watching or user.is_watching %}
                                     <div class="vid r1_iframe_embed">
                                         <video controls width="100%">
                                             <source src="{{ episode.get_video_mp4_url }}" type="video/mp4">

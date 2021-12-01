@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84dfcd15-c6d4-40eb-8737-f1c3bd7ea1e4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Episode/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Episode/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Front/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Front/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Front/episode.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Front/episode.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Front/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Front/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +31,31 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RunManager">
+    <configuration name="fiatre" type="Python.DjangoServer" factoryName="Django server">
+      <module name="fiatre" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -50,6 +73,9 @@
       <workItem from="1632128107310" duration="57000" />
       <workItem from="1632128165999" duration="3010000" />
       <workItem from="1632436190842" duration="4971000" />
+      <workItem from="1638217804064" duration="3033000" />
+      <workItem from="1638338182172" duration="33000" />
+      <workItem from="1638365608655" duration="912000" />
     </task>
     <servers />
   </component>

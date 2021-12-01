@@ -1,12 +1,13 @@
 from Setting.models import Setting
 
-
-def static_footer_header_variables(request):
-    settings = {}
-
+def public_operations(request):
     if request.user.is_authenticated and request.user.is_watching:
         request.user.is_watching = False
         request.user.save()
+    return {}
+
+def static_footer_header_variables(request):
+    settings = {}
 
     settings['advertise_title'] = Setting.objects.get_or_create(
         key='advertise_title',

@@ -88,6 +88,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'ContextProcessors.front.static_footer_header_variables',
+                'ContextProcessors.front.public_operations',
             ],
         },
     },

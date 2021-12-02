@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
+
 from utils.models import CustomModel
 
 User = get_user_model()
@@ -20,6 +22,8 @@ class Type(CustomModel):
     def __str__(self):
         return self.name + '-' + f"{self.time} ماهه"
 
+    def get_absolute_url(self):
+        return reverse_lazy('subscription-buy' , kwargs={'slug': self.slug})
 
     def get_type(self):
         return self.type

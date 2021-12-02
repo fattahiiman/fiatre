@@ -17,6 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from Front.sitemaps import EpisodesViewSitemap, CategoriesViewSitemap, StaticPagesViewSitemap, \
+    SubscriptionPlansViewSitemap
+from django.contrib.sitemaps.views import sitemap
+
+sitemaps = {
+    'episodes': EpisodesViewSitemap,
+    'categories': CategoriesViewSitemap,
+    'static': StaticPagesViewSitemap,
+    'subscription_plans': SubscriptionPlansViewSitemap,
+}
 
 urlpatterns = [
     path('django_admin/', admin.site.urls),
@@ -34,8 +44,10 @@ urlpatterns = [
     path('admin/subscriptions/', include('Subscription.urls')),
     path('admin/settings/', include('Setting.urls')),
     path('admin/coupons/', include('Coupon.urls')),
-]
 
+    ## Sitemap ##
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps})
+]
 
 urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

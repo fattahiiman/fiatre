@@ -17,9 +17,6 @@ def check_subscription_expiration(user):
         today = timezone.now()
         expiration = user.get_subscription().created_at + relativedelta(months=user.get_subscription().type.time)
 
-        print('***********************')
-        print(expiration)
-
         if expiration >= today:
             return True
 

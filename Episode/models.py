@@ -1,5 +1,6 @@
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
+from django.urls import reverse_lazy
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 import time
@@ -54,6 +55,8 @@ class Episode(CustomModel):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse_lazy('episode' , kwargs={'slug': self.slug})
 
     def get_video_mp4_url(self):
         return self.video

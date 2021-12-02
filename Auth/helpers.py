@@ -64,7 +64,6 @@ def check_login_code_code_expiration(code):
         expiration = login_code.created_at + timedelta(minutes=1)
 
         if today > expiration:
-            print('+++++++++++++++++++++++++++++++++++')
             return False
 
         return True

@@ -4,11 +4,11 @@
 
 {% block content %}
 
-    <div class="row">
+<div class="row">
 
-        {% if messages %}
-            {% for item in messages %}
-                <script>
+    {% if messages %}
+    {% for item in messages %}
+    <script>
                     Swal.fire({
                         title: "تبریک ! 🥳",
                         icon: 'success',
@@ -17,31 +17,33 @@
                         cancelButtonColor: 'var(--primary)',
                         confirmButtonText: 'اوکی',
                     })
-                </script>
-            {% endfor %}
-        {% endif %}
 
-        <div class="col-lg-12">
-            <div class="card-box">
-                <div class="card-block">
-                    <h4 class="card-title">لیست ویدیو ها</h4>
 
-                    {% include 'Admin/search_box.html' with page_obj=page_obj %}
+    </script>
+    {% endfor %}
+    {% endif %}
 
-                    <a class="btn btn-primary pull-right" href="{% url 'episodes-create' %}">افزودن ویدیو جدید</a>
+    <div class="col-lg-12">
+        <div class="card-box">
+            <div class="card-block">
+                <h4 class="card-title">لیست ویدیو ها</h4>
 
-                    {% include 'Admin/Episodes/partials/list.html' with page_obj=page_obj episodes=episodes %}
+                {% include 'Admin/search_box.html' with page_obj=page_obj %}
 
-                </div>
+                <a class="btn btn-primary pull-right" href="{% url 'episodes-create' %}">افزودن ویدیو جدید</a>
+
+                {% include 'Admin/Episodes/partials/list.html' with page_obj=page_obj episodes=episodes %}
+
             </div>
         </div>
-
     </div>
+
+</div>
 
 {% endblock %}
 
 {% block Scripts %}
-    <script>
+<script>
         var search_word = ''
         var current_page = 1
         var current_limit = 10
@@ -148,6 +150,24 @@
             });
         }
 
+       function Category_Filter() {
+            var category = $("#category_filter option:selected").val()
+            if (category == 'همه'){
+                category = ''
+            }
+
+             current_page = 1
+
+            $.ajax({
+                url: "{% url 'episodes' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit + '&category=' + category,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#list").html(data)
+                },
+            });
+        }
+
         function Delete(item_id, is_last_item) {
 
             const csrftoken = getCookie('csrftoken');
@@ -228,5 +248,7 @@
             });
         }
 
-    </script>
+
+
+</script>
 {% endblock %}

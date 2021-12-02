@@ -15,6 +15,11 @@ class EpisodesList(ListView):
     paginate_by = settings.PAGINATION_NUMBER
     ordering = ['-created_at']
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        context['categories'] = Category.objects.all()
+        return context
+
     def get_template_names(self):
         template_name = 'Admin/Episodes/index.html'
         if self.request.is_ajax():
@@ -24,8 +29,15 @@ class EpisodesList(ListView):
     def get_queryset(self):
         search_word = self.request.GET.get('search')
         limit = self.request.GET.get('limit')
+        category = self.request.GET.get('category')
 
         object_list = self.model.objects.all()
+
+        print('ddddddddddddddddddddddddd')
+        print(category)
+
+        if category:
+            object_list = object_list.filter(category__slug=category)
 
         if search_word:
             object_list = object_list.filter(title__icontains=search_word)

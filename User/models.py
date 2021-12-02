@@ -14,7 +14,7 @@ client = Client('https://www.zarinpal.com/pg/services/WebGate/wsdl')
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    phone = models.CharField(_('phone'), max_length=11, unique=True)
+    phone = models.CharField(_('phone'), max_length=255, unique=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     last_login = models.DateTimeField(_('last login'), auto_now=True)
     is_superuser = models.BooleanField(_('is superuser'), default=False)

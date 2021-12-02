@@ -3,7 +3,6 @@ from Setting.models import Setting
 def seo_metatags(request):
     tags = {}
     if '/admin' not in request.path:
-        print('++++++++++++++++++++++++++++++++++')
         tags['meta_tag_description'] = Setting.objects.get_or_create(
             key='meta_tag_description',
             defaults={'key': 'meta_tag_description',

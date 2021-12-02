@@ -55,4 +55,18 @@ class User(AbstractBaseUser, PermissionsMixin):
             return False
 
     def sms_disposable_code(self , phone, code):
-        pass
+        message = """سلام\n\nکاربر گرامی کد یکبار مصرف ورود شما {0} می باشد.\n\nفیاتر\nwww.fiatre.ir""".format(code)
+
+        data = {
+            'username': settings.SMS_USERNAME,
+            'password': settings.SMS_PASSWORD,
+            'to': phone,
+            'from': settings.SMS_FROM_NUMBER,
+            'text': message,
+        }
+
+        result = requests.post('https://rest.payamak-panel.com/api/SendSMS/SendSMS', data).json()
+        if result['RetStatus'] == 1:
+            return True
+        else:
+            return False

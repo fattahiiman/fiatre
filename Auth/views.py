@@ -253,18 +253,26 @@ class LoginCodeConfirmView(CheckLoginMixin, View):
             code = form.cleaned_data.get('code')
 
             if check_login_code_code_expiration(code):
-                phone = request.session['login_code_phone']
+                phone = request.session.get('login_code_phone' , None)
                 user = get_object_or_404(User , phone=phone)
-                status, user = login_method(user.phone, user.password, False, request)
-                if status:
-                    next = '/'
-                    if request.GET.get('next'):
-                        next = request.GET['next']
 
-                    elif user.is_superuser:
-                        next = reverse_lazy('admin')
+                if "login_code_phone" in request.session.keys():
+                    del request.session["login_code_phone"]
 
-                    return redirect(next)
+                login(request, user)
+
+                login_code = user.login_codes.filter(is_used=False).last()
+                login_code.is_used = True
+                login_code.save()
+
+                next = '/'
+                if request.GET.get('next'):
+                    next = request.GET['next']
+
+                elif user.is_superuser:
+                    next = reverse_lazy('admin')
+
+                return redirect(next)
 
             else:
                 messages.error(request, 'کد وارد شده معتبر نیست!')

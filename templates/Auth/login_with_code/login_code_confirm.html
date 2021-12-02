@@ -7,7 +7,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-4 mt-5">
                     <div class="login-card mb-5">
-                        <form action="{% url 'password-reset-confirm' %}" method="post">
+                        <form action="{% url 'login-code-confirm' %}" method="post">
                             {% csrf_token %}
 
                             {% if form.errors %}
@@ -33,13 +33,13 @@
                             {% endif %}
 
                             <p>
-                                کد تاییدی که به شماره تلفن شما پیامک شده است را وارد کنید.
+                                کد ورود یکبار مصرف که به شماره تلفن شما پیامک شده است را وارد کنید.
                                 <br>
                                 <br> مثال : 12345
                             </p>
 
                             <input type="text" required name="code" class="form-control"
-                                   placeholder="کد تایید">
+                                   placeholder="کد یکبار مصرف">
 
                             <div class="button-login">
                                 <button type="submit">

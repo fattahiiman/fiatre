@@ -1,4 +1,5 @@
-{% load setting_tags public_tags %}
+{% load setting_tags %}
+{% load jalali_tags %}
 
 <span id="list">
     <table class="table table-hover">
@@ -21,7 +22,7 @@
 
             <td>{{ item.type|default_if_none:"---" }}</td>
 
-            <td>{{ item.created_at|jdate }}</td>
+            <td>{{ item.created_at|to_jalali }}</td>
 
             <td>
                 <div class="buttons ">

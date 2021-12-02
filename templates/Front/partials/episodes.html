@@ -27,7 +27,7 @@
                                                                         srcset="{{ item.image.url }} 400w, {{ item.image.url }} 218w"
                                                                         data-was-processed="true"></div>
                                 <div class="box-archive-title">
-                                    {{ item.title }}
+                                    {{ item.title|truncate:"50" }}
 {#                                    {% if item.episode %}#}
 {#                                    (قسمت {{ item.episode }})#}
 {#                                {% endif %}#}

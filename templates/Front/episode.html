@@ -44,9 +44,9 @@
                                  data-was-processed="true"></div>
 
                         {% if episode.episode %}
-                            <h2 class="film-en-name">قسمت {{ episode.episode }}</h2>
+                            <h2 class="film-en-name">{{ episode.episode }}</h2>
                         {% else %}
-                            <h2 class="film-en-name">فیلم {{ episode.title }}</h2>
+                            <h2 class="film-en-name">{{ episode.title }}</h2>
                         {% endif %}
                         {% if user.is_authenticated %}
                             {% if user.get_subscription and user|check_subscription_expiration %}
@@ -107,7 +107,7 @@
                                 {% if episode.type == 'movie' %}
                                     <li>{{ episode.genre }}</li>
                                 {% else %}
-                                    <li>آموزش عمومی {{ episode.category }}</li>
+                                    <li>{{ episode.category }}</li>
                                 {% endif %}
                                 <li>{{ episode.time }} دقیقه</li>
                                 {% if episode.type == 'movie' %}

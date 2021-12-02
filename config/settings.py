@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'admin_honeypot',
     'django_jalali',
+    'jalali_date',
 ]
 
 MIDDLEWARE = [
@@ -170,7 +171,7 @@ LOGIN_URL = config('LOGIN_URL')
 AUTH_USER_MODEL = 'User.User'
 
 ## Cuatom Setting ##
-PAGINATION_NUMBER = 10
+PAGINATION_NUMBER = 15
 
 ## Remember Me ##
 SESSION_COOKIE_AGE = 86400
@@ -184,6 +185,15 @@ SMS_FROM_NUMBER = config('SMS_FROM_NUMBER')
 MERCHANT_CODE =config('MERCHANT_CODE')
 MOBILE_NUMBER = config('MOBILE_NUMBER')
 EMAIL_ADDRESS = config('EMAIL_ADDRESS')
+
+
+# default settings
+JALALI_DATE_DEFAULTS = {
+   'Strftime': {
+        'date': '%y/%m/%d',
+        'datetime': '%H:%M:%S , %Y/%m/%d',
+    },
+}
 
 ## URL ##
 if DEBUG:

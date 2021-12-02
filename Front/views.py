@@ -259,7 +259,7 @@ class EpisodeDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['related_episodes'] = self.object.category.episodes.exclude(slug=self.kwargs['slug'])
+        context['related_episodes'] = self.object.category.episodes.exclude(slug=self.kwargs['slug'])[:6]
         return context
 
 

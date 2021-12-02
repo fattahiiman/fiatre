@@ -52,9 +52,9 @@
                             {% if user.get_subscription and user|check_subscription_expiration %}
 
                                 {% if not user.is_watching %}
-                                    <a target="_blank" class="view_video" href="{{ episode.get_video_mp4_url }}">
-                                        <button class="view_video">نمایش ویدئو در صفحه جدید</button>
-                                    </a>
+<!--                                    <a target="_blank" class="view_video" href="{{ episode.get_video_mp4_url }}">-->
+<!--                                        <button class="view_video">نمایش ویدئو در صفحه جدید</button>-->
+<!--                                    </a>-->
                                     {% if user.get_subscription.type.get_type == "full" %}
                                         <a target="_blank" class="view_video" href="{{ episode.get_video_mp4_url }}">
                                             <button class="view_video">دانلود ویدئو</button>

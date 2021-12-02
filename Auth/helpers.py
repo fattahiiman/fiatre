@@ -19,7 +19,7 @@ def check_reset_password_sent(user):
     reset_password = user.password_resets.last()
     if reset_password:
         today = timezone.now()
-        expiration = reset_password.created_at + timedelta(minutes=15)
+        expiration = reset_password.created_at + timedelta(minutes=1)
 
         if today > expiration:
             return True
@@ -33,7 +33,7 @@ def check_reset_password_code_expiration(code):
     reset_password = PasswordReset.objects.filter(code=code).first()
     if reset_password and not reset_password.is_used:
         today = timezone.now()
-        expiration = reset_password.created_at + timedelta(minutes=15)
+        expiration = reset_password.created_at + timedelta(minutes=1)
 
         if today > expiration:
             return False

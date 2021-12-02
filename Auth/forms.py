@@ -9,13 +9,13 @@ User = get_user_model()
 
 
 class LoginForm(forms.Form):
-    phone = forms.CharField(max_length=11, min_length=11, required=True)
+    phone = forms.CharField(max_length=255, min_length=11, required=True)
     password = forms.CharField(max_length=100, required=True)
     remember_me = forms.BooleanField(required=False , initial=False)
 
 
 class RegisterForm(forms.Form):
-    phone = forms.CharField(max_length=11, min_length=11, required=True, validators=[RegexValidator(
+    phone = forms.CharField(max_length=255, min_length=11, required=True, validators=[RegexValidator(
         regex=r'^-?\d+\Z',
         message="شماره موبایل باید عددی باشد",
     )])
@@ -40,7 +40,7 @@ class RegisterForm(forms.Form):
 
 
 class ResetPasswordForm(forms.Form):
-    phone = forms.CharField(max_length=11, min_length=11, required=True, validators=[RegexValidator(
+    phone = forms.CharField(max_length=255, min_length=11, required=True, validators=[RegexValidator(
         regex=r'^-?\d+\Z',
         message="شماره موبایل باید عددی باشد",
     )])
@@ -68,3 +68,17 @@ class ResetPasswordEnterForm(forms.Form):
             ])
 
         return cleaned_data
+
+
+class LoginCodeForm(forms.Form):
+    phone = forms.CharField(max_length=255, min_length=11, required=True, validators=[RegexValidator(
+        regex=r'^-?\d+\Z',
+        message="شماره موبایل باید عددی باشد",
+    )])
+
+
+class LoginCodeConfirmForm(forms.Form):
+    code = forms.CharField(max_length=5, min_length=5, required=True, validators=[RegexValidator(
+        regex=r'^-?\d+\Z',
+        message="کد تایید باید عددی باشد",
+    )])

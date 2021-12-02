@@ -9,7 +9,7 @@ from User.helpers import check_user_exist
 User = get_user_model()
 
 class UserForm(forms.Form):
-    phone = forms.CharField(max_length=255, min_length=255, validators=[RegexValidator(
+    phone = forms.CharField(max_length=255, min_length=11, validators=[RegexValidator(
         regex=r'^-?\d+\Z',
         message="شماره موبایل باید عددی باشد",
     )])

@@ -1,0 +1,53 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <div class="container-fluid mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-4 mt-5">
+                    <div class="login-card mb-5">
+                        <form action="{% url 'login-code' %}" method="post">
+                            {% csrf_token %}
+
+                            {% if form.errors %}
+                                {% for field in form %}
+
+                                    {% if field.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ field.label }} : {{ field.errors|striptags }}
+                                            <br>
+                                        </div>
+                                    {% endif %}
+
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if messages %}
+                                {% for item in messages %}
+                                    <div class="alert alert-danger">
+                                        {{ item }}
+                                        <br>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            <p>
+                                <br> لطفا شماره تلفن همراه خود را وارد نمایید
+                                <br> مثال : ********0912
+                            </p>
+                            <input type="text" required name="phone" class="form-control"
+                                   placeholder="شماره تلفن همراه">
+
+                            <div class="button-login">
+                                <button type="submit">
+                                    ارسال
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+    </main>
+{% endblock %}

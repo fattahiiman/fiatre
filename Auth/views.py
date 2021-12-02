@@ -1,6 +1,6 @@
 import random
 from django.contrib.auth import logout, authenticate, login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from .forms import *
@@ -21,7 +21,6 @@ def login_method(phone, password, remember_me, request):
 
     return [False, user]
 
-
 ################################################
 
 class Register(CheckLoginMixin, View):
@@ -33,7 +32,7 @@ class Register(CheckLoginMixin, View):
 
         if form.is_valid():
             phone = form.cleaned_data.get('phone')
-            password = form.cleaned_data.get('password')
+            password = form.cleaned_data.get('password').lower()
             remember_me = form.cleaned_data.get('remember_me')
 
             user = User.objects.create(phone=phone, is_active=1, is_superuser=0)
@@ -89,7 +88,7 @@ class Login(CheckLoginMixin, View):
 
         if form.is_valid():
             phone = form.cleaned_data.get('phone')
-            password = form.cleaned_data.get('password')
+            password = form.cleaned_data.get('password').lower()
             remember_me = form.cleaned_data.get('remember_me')
 
             status, user = login_method(phone, password, remember_me, request)
@@ -205,3 +204,72 @@ class ResetPasswordEnterView(CheckLoginMixin, CheckPasswordResetExpirationMixin,
             'form': form
         }
         return render(request, 'Auth/reset_password_enter.html', context)
+
+########################################################################################################
+
+## Login With Code ##
+class LoginCodeView(CheckLoginMixin, View):
+    def get(self, request):
+        return render(request, 'Auth/login_with_code/login_code.html')
+
+    def post(self, request):
+        form = LoginCodeForm(data=request.POST or None)
+
+        if form.is_valid():
+            phone = form.cleaned_data.get('phone')
+            user = User.objects.filter(phone=phone).first()
+
+            if user:
+                if check_login_code_sent(user):
+                    code = ''.join([str(random.randint(0, 9)) for item in range(5)])
+
+                    if user.sms_disposable_code(user.phone, code):
+                        LoginCode.objects.create(code=code, user=user)
+                        request.session['login_code_phone'] = user.phone
+                        return redirect(reverse_lazy('login-code-confirm'))
+
+                    messages.error(request, 'خطایی هنگام ارسال پیامک حاوی کد یکبار مصرف پیش آمده است! لطفا دوباره امتحان کنید.')
+
+                else:
+                    messages.error(request,
+                                   'کد یکبار مصرف ورود برای شما ارسال شده است ، پس از گذشت 1 دقیقه میتوانید دوباره درخواست کنید')
+
+            else:
+                messages.error(request, 'کاربری با این شماره موبایل وجود ندارد!')
+
+        context = {
+            'form': form
+        }
+        return render(request, 'Auth/login_with_code/login_code.html', context)
+
+class LoginCodeConfirmView(CheckLoginMixin, View):
+    def get(self, request):
+        return render(request, 'Auth/login_with_code/login_code_confirm.html')
+
+    def post(self, request):
+        form = LoginCodeConfirmForm(data=request.POST or None)
+
+        if form.is_valid():
+            code = form.cleaned_data.get('code')
+
+            if check_login_code_code_expiration(code):
+                phone = request.session['login_code_phone']
+                user = get_object_or_404(User , phone=phone)
+                status, user = login_method(user.phone, user.password, False, request)
+                if status:
+                    next = '/'
+                    if request.GET.get('next'):
+                        next = request.GET['next']
+
+                    elif user.is_superuser:
+                        next = reverse_lazy('admin')
+
+                    return redirect(next)
+
+            else:
+                messages.error(request, 'کد وارد شده معتبر نیست!')
+
+        context = {
+            'form': form
+        }
+        return render(request, 'Auth/login_with_code/login_code_confirm.html', context)

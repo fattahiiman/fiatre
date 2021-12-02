@@ -33,9 +33,6 @@ class EpisodesList(ListView):
 
         object_list = self.model.objects.all()
 
-        print('ddddddddddddddddddddddddd')
-        print(category)
-
         if category:
             object_list = object_list.filter(category__slug=category)
 

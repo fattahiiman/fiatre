@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+
+from Subscription.models import Type
 from .forms import *
 from django.views.generic import ListView, DeleteView
 from django.views import View
@@ -15,6 +17,11 @@ class UsersList(ListView):
     context_object_name = 'users'
     paginate_by = settings.PAGINATION_NUMBER
     ordering = ['-date_joined']
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        context['subscriptions'] = Type.objects.all()
+        return context
 
     def get_template_names(self):
         template_name = 'Admin/Users/index.html'

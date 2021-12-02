@@ -22,13 +22,13 @@
         <tr>
             <td>{{ forloop.counter }}</td>
 
-            <td>{{ item.title }}</td>
+            <td>{{ item.title|truncatechars:"30" }}</td>
 
             <td>{{ item.time }} دقیقه</td>
 
-            <td>{{ item.teacher | default_if_none:'-' }}</td>
+            <td>{{ item.teacher | default_if_none:'-' | truncatechars:"30" }}</td>
 
-            <td>{{ item.category.name }}</td>
+            <td>{{ item.category.name | truncatechars:"30" }}</td>
 
              <td>
                         <span class="{% if item.type == 'educational' %}

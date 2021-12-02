@@ -9,10 +9,6 @@ User = get_user_model()
 
 @register.filter
 def check_subscription_expiration(user):
-    print('++++++++++++++++')
-    print(user.get_subscription())
-    print(user.get_subscription().created_at)
-    print(relativedelta(months=user.get_subscription().type.time))
     if user.get_subscription():
         today = timezone.now()
         expiration = user.get_subscription().created_at + relativedelta(months=user.get_subscription().type.time)

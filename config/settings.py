@@ -91,6 +91,7 @@ TEMPLATES = [
 
                 'ContextProcessors.front.static_footer_header_variables',
                 'ContextProcessors.front.public_operations',
+                'ContextProcessors.front.seo_metatags',
             ],
         },
     },

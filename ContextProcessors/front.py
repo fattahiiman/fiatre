@@ -1,5 +1,28 @@
 from Setting.models import Setting
 
+def seo_metatags(request):
+    tags = {}
+    if '/admin' not in request.path:
+        print('++++++++++++++++++++++++++++++++++')
+        tags['meta_tag_description'] = Setting.objects.get_or_create(
+            key='meta_tag_description',
+            defaults={'key': 'meta_tag_description',
+                      'value': 'نمایش آنلاین تئاتر با زیرنویس تخصصی فارسی-فیاتر'},
+        )[0].value
+
+        tags['meta_tag_keywords'] = Setting.objects.get_or_create(
+            key='meta_tag_keywords',
+            defaults={'key': 'meta_tag_keywords',
+                      'value': 'HTML, CSS, JavaScript, Django, Python, WebDevelopment, Seo'},
+        )[0].value
+
+        tags['meta_tag_author'] = Setting.objects.get_or_create(
+            key='meta_tag_author',
+            defaults={'key': 'meta_tag_author',
+                      'value': 'اولین VOD تخصصی هنر در ایران'},
+        )[0].value
+    return {'tags' : tags}
+
 def public_operations(request):
     if '/admin' not in request.path and request.user.is_authenticated and request.user.is_watching:
         request.user.is_watching = False

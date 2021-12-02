@@ -32,7 +32,7 @@
         {% if '/admin/users/' in request.path %}
             <div class="col-lg-6">
                 <label class="control-label col-lg-2">نوع اشتراک</label>
-                <select onchange="Category_Filter()" id="subscription_type" class="form-control rounded">
+                <select onchange="Subscription_type_Filter()" id="subscription_type" class="form-control rounded">
                     <option>همه</option>
                     {% for item in subscriptions %}
                         <option value="{{ item.slug }}">{{ item.name }}</option>

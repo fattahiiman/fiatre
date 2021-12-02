@@ -150,6 +150,24 @@
             });
         }
 
+        function Subscription_type_Filter() {
+            var subscription_type = $("#subscription_type option:selected").val()
+            if (subscription_type == 'همه'){
+                subscription_type = ''
+            }
+
+             current_page = 1
+
+            $.ajax({
+                url: "{% url 'users' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit + '&subscription_type=' + subscription_type,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#list").html(data)
+                },
+            });
+        }
+
         function Delete(item_id, is_last_item) {
 
             const csrftoken = getCookie('csrftoken');

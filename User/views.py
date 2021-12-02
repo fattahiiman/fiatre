@@ -32,8 +32,13 @@ class UsersList(ListView):
     def get_queryset(self):
         search_word = self.request.GET.get('search')
         limit = self.request.GET.get('limit')
+        subscription_type = self.request.GET.get('subscription_type')
 
         object_list = self.model.objects.all()
+
+        if subscription_type:
+            object_list = object_list.filter(subscription__type__slug=subscription_type)
+
 
         if search_word:
             object_list = object_list.filter(phone__icontains=search_word)

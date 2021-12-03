@@ -61,7 +61,7 @@ class UsersCreate(View):
         if form.is_valid():
             user = User.objects.create(phone=form.cleaned_data.get('phone'),
                                        is_superuser=form.cleaned_data.get('is_superuser'))
-            user.set_password(form.cleaned_data.get('password'))
+            user.set_password(form.cleaned_data.get('password').lower())
             user.save()
 
             messages.success(request, 'کاربر مورد نظر با موفقیت ثبت شد.')
@@ -94,7 +94,7 @@ class UsersUpdate(View):
             user.is_superuser = form.cleaned_data.get('is_superuser')
 
             if form.cleaned_data.get('password'):
-                user.set_password(form.cleaned_data.get('password'))
+                user.set_password(form.cleaned_data.get('password').lower())
             user.save()
 
             messages.success(request, 'کاربر مورد نظر با موفقیت ویرایش شد.')

@@ -6,7 +6,9 @@ from django.utils.text import slugify
 import time
 from Category.models import Category
 from utils.models import CustomModel
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 def upload_image(instance , filename):
     path = 'episodes/images/' + slugify(instance.title , allow_unicode=True)
@@ -60,3 +62,15 @@ class Episode(CustomModel):
 
     def get_video_mp4_url(self):
         return self.video
+
+
+class EpisodeDownload(CustomModel):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='user_downloads',verbose_name='کاربر')
+    episode = models.ForeignKey(to=Episode, on_delete=models.CASCADE, related_name='user_downloads',verbose_name='قسمت')
+
+    class Meta:
+        verbose_name = 'ویدیو دانلود شده'
+        verbose_name_plural = 'ویدیوها دانلود شده'
+
+    def __str__(self):
+        return f"{self.user}-{self.episode}"

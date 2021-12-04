@@ -17,7 +17,7 @@
                 <option>20</option>
             </select>
         </div>
-        {% if '/admin/episodes/' in request.path %}
+        {% if '/admin/episodes/' in request.path and '/downloads' not in request.path %}
             <div class="col-lg-6">
                 <label class="control-label col-lg-2">دسته بندی</label>
                 <select onchange="Category_Filter()" id="category_filter" class="form-control rounded">

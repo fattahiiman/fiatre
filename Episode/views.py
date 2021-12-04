@@ -96,6 +96,42 @@ class EpisodesDelete(DeleteView):
 
 #####################################################################
 
+class EpisodeDownloadsList(ListView):
+    model = EpisodeDownload
+    context_object_name = 'episode_downloads'
+    paginate_by = settings.PAGINATION_NUMBER
+    ordering = ['-created_at']
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        context['categories'] = Category.objects.all()
+        return context
+
+    def get_template_names(self):
+        template_name = 'Admin/Episode_Downloads/index.html'
+        if self.request.is_ajax():
+            template_name = 'Admin/Episode_Downloads/partials/list.html'
+        return template_name
+
+    def get_queryset(self):
+        search_word = self.request.GET.get('search')
+        limit = self.request.GET.get('limit')
+        category = self.request.GET.get('category')
+
+        object_list = self.model.objects.all()
+
+        if category:
+            object_list = object_list.filter(category__slug=category)
+
+        if search_word:
+            object_list = object_list.filter(title__icontains=search_word)
+
+        if limit:
+            self.paginate_by = int(self.request.GET.get('limit'))
+        return object_list
+
+#####################################################################
+
 class DeleteEpisodeVideo(View):
     def delete(self, request, pk):
         episode = get_object_or_404(Episode, pk=pk)

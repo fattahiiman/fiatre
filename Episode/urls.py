@@ -7,4 +7,6 @@ urlpatterns = [
     path('update/<pk>/', EpisodesUpdate.as_view(), name='episodes-update'),
     path('delete/<pk>/', EpisodesDelete.as_view(), name='episodes-delete'),
     path('video/delete/<pk>/', DeleteEpisodeVideo.as_view(), name='episodes-video-delete'),
+
+    path('downloads', EpisodeDownloadsList.as_view(), name='episode_downloads'),
 ]

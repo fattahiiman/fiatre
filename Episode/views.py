@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -116,15 +117,12 @@ class EpisodeDownloadsList(ListView):
     def get_queryset(self):
         search_word = self.request.GET.get('search')
         limit = self.request.GET.get('limit')
-        category = self.request.GET.get('category')
 
         object_list = self.model.objects.all()
 
-        if category:
-            object_list = object_list.filter(category__slug=category)
-
         if search_word:
-            object_list = object_list.filter(title__icontains=search_word)
+            q = Q(episode__title__icontains=search_word) |  Q(user__phone__icontains=search_word)
+            object_list = object_list.filter(q)
 
         if limit:
             self.paginate_by = int(self.request.GET.get('limit'))

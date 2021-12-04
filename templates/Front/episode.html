@@ -63,7 +63,7 @@
                     <!--                                    </a>-->
                     {% if user.get_subscription.type.get_type == "full" %}
                     <a target="_blank" class="view_video" href="{{ episode.get_video_mp4_url }}">
-                        <button class="view_video">دانلود ویدئو</button>
+                        <button onclick="DownloadCount()" class="view_video">دانلود ویدئو</button>
                     </a>
                     {% endif %}
                     {% endif %}
@@ -247,6 +247,20 @@
             });
         }
 
+        function DownloadCount() {
+            const csrftoken = getCookie('csrftoken');
+
+            $.ajax({
+                url: "{% url 'download-count-view' %}",
+                headers: {'X-CSRFToken': csrftoken},
+                method: "POST",
+                async: true,
+                data: { 'episode' : {{ episode.id }} },
+                success: function (data) {
+                },
+            });
+        }
+
         $("video").on("ended", function () {
             IncreaseViewCount()
         });
@@ -254,9 +268,6 @@
         $("video").on("play pause", function () {
             WatchingStatus()
         });
-
-
-
 
 </script>
 {% endblock %}

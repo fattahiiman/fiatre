@@ -351,7 +351,7 @@ class SubscriptionCheckCoupon(LoginRequiredMixin, View):
 
 
 ## Increase View CountiewCo
-class EpisodesViewCountIncreaseView(UpdateView):
+class EpisodesViewCountIncreaseView(LoginRequiredMixin , UpdateView):
     model = Episode
     success_url = '/'
     fields = ['view_count']
@@ -365,11 +365,23 @@ class EpisodesViewCountIncreaseView(UpdateView):
 
 
 ## Watching
-class WatchingStatusChangeView(View):
+class WatchingStatusChangeView(LoginRequiredMixin , View):
     success_url = '/'
 
     def post(self, request, *args, **kwargs):
         request.user.is_watching = not request.user.is_watching
         request.user.save()
+
+        return JsonResponse({'status' : 'OK'}, safe=False)
+
+
+## DownloadCount
+class DownloadCountView(LoginRequiredMixin , View):
+    success_url = '/'
+
+    def post(self, request, *args, **kwargs):
+        request.user.user_downloads.create(episode_id=request.POST.get('episode'))
+        request.user.save()
+
 
         return JsonResponse({'status' : 'OK'}, safe=False)

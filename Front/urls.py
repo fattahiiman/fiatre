@@ -19,4 +19,7 @@ urlpatterns = [
 
     ## User Watchinh ##
     path('watching/status/' , WatchingStatusChangeView.as_view() , name='watching-status-change-view'),
+
+    ## User Download ##
+    path('download/count/', DownloadCountView.as_view(), name='download-count-view'),
 ]

@@ -8,6 +8,7 @@
         <th>کد</th>
         <th>درصد</th>
         <th>زمان قابل استفاده</th>
+        <th>موارد استفاده شده</th>
         <th>اعمال</th>
     </tr>
     </thead>
@@ -22,6 +23,8 @@
             <td>%{{ item.percent }}</td>
 
             <td>{{ item.time }} ماهه</td>
+
+            <td><a href="{% url 'coupons_user' %}?coupon={{ item.id }}">{{ item.used_coupons.count }}</a></td>
 
             <td>
                 <div class="buttons ">

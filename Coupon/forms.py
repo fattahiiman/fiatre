@@ -6,6 +6,10 @@ class CouponForm(forms.ModelForm):
         model = Coupon
         fields = '__all__'
 
+class CouponUserForm(forms.ModelForm):
+    class Meta:
+        model = CouponUser
+        fields = '__all__'
 
 class SubscriptionBuyCouponForm(forms.ModelForm):
     class Meta:

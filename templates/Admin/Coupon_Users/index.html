@@ -1,0 +1,109 @@
+{% extends 'Layouts/admin-master.html' %}
+
+{% block title %} لیست موارد استفاده کد تخفیف {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        {% if messages %}
+            {% for item in messages %}
+                <script>
+                    Swal.fire({
+                        title: "تبریک ! 🥳",
+                        icon: 'success',
+                        text: '{{ item }}',
+                        type: "success",
+                        cancelButtonColor: 'var(--primary)',
+                        confirmButtonText: 'اوکی',
+                    })
+                </script>
+            {% endfor %}
+        {% endif %}
+
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div class="card-block">
+                    <h4 class="card-title">لیست موارد استفاده کد تخفیف</h4>
+
+                    {% include 'Admin/search_box.html' with page_obj=page_obj %}
+
+                    {% include 'Admin/Coupon_Users/partials/list.html' with page_obj=page_obj coupon_users=coupon_users %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block Scripts %}
+    <script>
+        var search_word = ''
+        var current_page = 1
+        var current_limit = 10
+
+        // CSRF TOKEN //
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////
+
+        function Paginate(page = 1) {
+            $.ajax({
+                url: "{% url 'coupons_user' %}?page=" + page + '&search=' + search_word + '&limit=' + current_limit,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#list").html(data)
+                    current_page = page
+                },
+            });
+        }
+
+        function Search() {
+            var search = $('#search').val()
+
+            current_page = 1
+
+            $.ajax({
+                url: "{% url 'coupons_user' %}?page=" + current_page + '&search=' + search + '&limit=' + current_limit,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#list").html(data)
+                    search_word = search
+                },
+            });
+        }
+
+        function Limit() {
+            var limit = parseInt($("#limit option:selected").val())
+            current_page = 1
+
+            $.ajax({
+                url: "{% url 'coupons_user' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
+                method: "GET",
+                async: true,
+                success: function (data) {
+                    $("#list").html(data)
+                    current_limit = limit
+                },
+            });
+        }
+    </script>
+{% endblock %}

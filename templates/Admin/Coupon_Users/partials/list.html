@@ -1,0 +1,30 @@
+{% load setting_tags %}
+{% load jalali_tags %}
+
+<span id="list">
+    <table class="table table-hover">
+    <thead>
+    <tr>
+        <th>ردیف</th>
+        <th>کاربر</th>
+        <th>کد تخفیف</th>
+        <th>تاریخ ثبت</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for item in coupon_users %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{ item.user|default_if_none:"---" }}</td>
+
+            <td>{{ item.coupon.code|default_if_none:"---" }}</td>
+
+            <td>{{ item.created_at|to_jalali }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    {% include 'Admin/pagination.html' with page_obj=page_obj %}
+</span>

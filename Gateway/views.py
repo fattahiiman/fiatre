@@ -4,7 +4,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.views.decorators.http import require_http_methods
 from zeep import Client
 from Subscription.models import Subscription, Type
-from Coupon.models import Coupon
+from Coupon.models import Coupon, CouponUser
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from django.http import Http404
@@ -17,6 +17,7 @@ def DeleteLastData(request):
     try:
         request.session.pop('payment_amount')
         request.session.pop('coupon_price')
+        request.session.pop('coupon')
     except:
         pass
 
@@ -82,6 +83,7 @@ def pay(request):
     if coupon:
         total_amount = CalculateCouponAmount(coupon.percent, total_amount)
         request.session['coupon_price'] = (type.price * coupon.percent) / 100
+        request.session['coupon'] = coupon.id
 
     if total_amount == 0:
         return redirect('/')
@@ -104,6 +106,7 @@ def verify(request):
 
     amount = int(request.session.get('payment_amount', 0))
     coupon_price = int(request.session.get('coupon_price', 0))
+    coupon = int(request.session.get('coupon', 0))
 
     context = {}
     context['type_name'] = subscription.type.name
@@ -116,6 +119,9 @@ def verify(request):
 
                 subscription.status = True
                 subscription.save()
+
+                if coupon:
+                    CouponUser.objects.create(user=request.user , coupon_id=coupon)
 
                 Delete_User_DeActive_Subscription(request.user)
                 DeleteLastData(request)

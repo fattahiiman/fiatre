@@ -120,7 +120,7 @@
             current_page = 1
 
             $.ajax({
-                url: "{% url 'coupons' %}?page=" + current_page + '&search=' + search_word + '&limit=' + current_limit,
+                url: "{% url 'coupons' %}?page=" + current_page + '&search=' + search_word + '&limit=' + limit,
                 method: "GET",
                 async: true,
                 success: function (data) {

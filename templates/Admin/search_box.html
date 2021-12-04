@@ -11,10 +11,10 @@
         <div class="col-lg-2">
             <label class="control-label col-lg-2">نتایج</label>
             <select onchange="Limit()" id="limit" class="form-control rounded">
-                <option>5</option>
-                <option selected>10</option>
-                <option>15</option>
-                <option>20</option>
+                <option value="5">5</option>
+                <option selected value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
             </select>
         </div>
         {% if '/admin/episodes/' in request.path and '/downloads' not in request.path %}

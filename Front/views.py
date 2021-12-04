@@ -383,14 +383,14 @@ class WatchingStatusChangeView(LoginRequiredMixin , View):
 class DownloadCountView(LoginRequiredMixin , View):
     success_url = '/'
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         subscription_day = request.user.subscription.filter(status=True).last().created_at.date().day
         last_month = datetime.now() - relativedelta(months=1)
         last_user_downloads = request.user.user_downloads\
             .filter(created_at__range=(last_month.replace(day=subscription_day), datetime.now()))
 
         if last_user_downloads.count() >= 10:
-            return JsonResponse({'status' : 'ERROR'} , status=400, safe=False)
+            return JsonResponse({'status' : 'ERROR'} , status   =400, safe=False)
 
         request.user.user_downloads.create(episode_id=request.POST.get('episode'))
         request.user.save()

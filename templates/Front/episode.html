@@ -26,6 +26,7 @@
     .wrapping_titles{
         word-wrap: break-word;
     }
+
 </style>
 {% endblock %}
 
@@ -247,7 +248,29 @@
             });
         }
 
-<!--{{ episode.get_video_mp4_url }}-->
+            function showToast(error, type) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": false,
+                "showDuration": "2000",
+                "hideDuration": "500",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            if (type === 'success') {
+                toastr.success(error)
+            } else {
+                toastr.error(error)
+            }
+        }
 
         function DownloadCount() {
             const csrftoken = getCookie('csrftoken');
@@ -259,8 +282,11 @@
                 async: true,
                 data: { 'episode' : {{ episode.id }} },
                 success: function (data) {
-                    console.log(data)
+                   window.open('{{ episode.get_video_mp4_url }}', '_blank');
                 },
+                error: function(error){
+                    showToast('محدودیت 10 دانلود در یک ماه شما به اتمام رسیده است!', 'error')
+                }
             });
         }
 
@@ -271,6 +297,7 @@
         $("video").on("play pause", function () {
             WatchingStatus()
         });
+
 
 </script>
 {% endblock %}

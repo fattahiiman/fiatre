@@ -389,10 +389,7 @@ class DownloadCountView(LoginRequiredMixin , View):
         last_user_downloads = request.user.user_downloads\
             .filter(created_at__range=(last_month.replace(day=subscription_day), datetime.now()))
 
-        print('+++++++++++++++++++++++++++++++++')
-        print(last_user_downloads.count())
-
-        if last_user_downloads.count() == 10:
+        if last_user_downloads.count() >= 10:
             return JsonResponse({'status' : 'ERROR'} , status=400, safe=False)
 
         request.user.user_downloads.create(episode_id=request.POST.get('episode'))

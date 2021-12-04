@@ -6,6 +6,7 @@ urlpatterns = [
     path('about/' , About_us.as_view() , name='about_us'),
     path('terms/' , Terms.as_view() , name='terms'),
     path('faq/' , Faq.as_view() , name='faq'),
+    path('internet_conditions/' , InternetConditions.as_view() , name='internet_conditions'),
     path('categories/<slug>/' , Cat.as_view() , name='category'),
     path('episodes/<slug>/' , EpisodeDetail.as_view() , name='episode'),
     path('episodes/increase/view_count/<slug>/' , EpisodesViewCountIncreaseView.as_view() , name='episode-increase-view'),

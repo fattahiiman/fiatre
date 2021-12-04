@@ -1,0 +1,25 @@
+{% extends 'Layouts/front-master.html' %}
+{% load static %}
+
+{% block title %} شرایط مصرف اینترنت {% endblock %}
+
+{% block content %}
+<main>
+    <div class="main_background"><img
+            src="https://fiatre.ir/wp-content/themes/fiatre.ir/image/main-background.jpg" alt="main background">
+        <h1 style="font-size: 35px;">شرایط مصرف اینترنت</h1></div>
+
+    <div class="container mt-5" style="margin-top: 100px;">
+        <div class="row justify-content-center">
+            <div class="col-md-12 mt-5">
+                <div class="page-container" style="font-family: Shabnam;">
+                    <article class="page-entry">
+                        {{ Internet_conditions_text | safe }}
+                    </article>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

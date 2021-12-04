@@ -1,3 +1,5 @@
+from builtins import print
+
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from Category.models import Category
@@ -19,6 +21,8 @@ from Gateway.views import CalculateCouponAmount
 from .helpers import PersianizeAmount
 from django.views.generic import UpdateView
 from django.contrib.auth import get_user_model
+from datetime import datetime , timedelta
+from dateutil.relativedelta import relativedelta
 
 User = get_user_model()
 
@@ -380,8 +384,17 @@ class DownloadCountView(LoginRequiredMixin , View):
     success_url = '/'
 
     def post(self, request, *args, **kwargs):
+        subscription_day = request.user.subscription.filter(status=True).last().created_at.date().day
+        last_month = datetime.now() - relativedelta(months=1)
+        last_user_downloads = request.user.user_downloads\
+            .filter(created_at__range=(last_month.replace(day=subscription_day), datetime.now()))
+
+        print('+++++++++++++++++++++++++++++++++')
+        print(last_user_downloads.count())
+
+        if last_user_downloads.count() == 10:
+            return JsonResponse({'status' : 'ERROR'} , status=400, safe=False)
+
         request.user.user_downloads.create(episode_id=request.POST.get('episode'))
         request.user.save()
-
-
         return JsonResponse({'status' : 'OK'}, safe=False)

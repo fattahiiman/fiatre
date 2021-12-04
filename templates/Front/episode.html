@@ -62,7 +62,7 @@
                     <!--                                        <button class="view_video">نمایش ویدئو در صفحه جدید</button>-->
                     <!--                                    </a>-->
                     {% if user.get_subscription.type.get_type == "full" %}
-                    <a target="_blank" class="view_video" href="{{ episode.get_video_mp4_url }}">
+                    <a>
                         <button onclick="DownloadCount()" class="view_video">دانلود ویدئو</button>
                     </a>
                     {% endif %}
@@ -247,6 +247,8 @@
             });
         }
 
+<!--{{ episode.get_video_mp4_url }}-->
+
         function DownloadCount() {
             const csrftoken = getCookie('csrftoken');
 
@@ -257,6 +259,7 @@
                 async: true,
                 data: { 'episode' : {{ episode.id }} },
                 success: function (data) {
+                    console.log(data)
                 },
             });
         }

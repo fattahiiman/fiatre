@@ -9,6 +9,9 @@ class Coupon(CustomModel):
     time = models.IntegerField(default=1 , verbose_name='مدت زمان استفاده (ماه)')
     percent = models.IntegerField(verbose_name='درصد تخفیف')
 
+    TYPE_OPTIONS = (('UD', 'دلار'), ('TM', 'تومان'))
+    type = models.CharField(max_length=2, choices=TYPE_OPTIONS, verbose_name='نوع', default='TM')
+
     class Meta:
         verbose_name = 'کد تخفیف'
         verbose_name_plural = 'کد تخفیف های تخفیف'

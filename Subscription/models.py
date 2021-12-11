@@ -15,6 +15,9 @@ class Type(CustomModel):
     TYPE_OPTIONS = (('full', 'کامل'), ('view', 'فقط تماشا'))
     type = models.CharField(max_length=11, choices=TYPE_OPTIONS, verbose_name='نوع اشتراک' , default='movie')
 
+    PRICE_TYPE_OPTIONS = (('UD', 'دلار'), ('TM', 'تومان'))
+    price_type = models.CharField(max_length=2, choices=PRICE_TYPE_OPTIONS, verbose_name='نوع ارز', default='TM')
+
     class Meta:
         verbose_name = 'اشتراک'
         verbose_name_plural = 'اشتراک ها'

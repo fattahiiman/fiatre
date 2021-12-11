@@ -1,3 +1,5 @@
 .venv
 media
 .idea
+config
+config/

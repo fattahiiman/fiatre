@@ -22,15 +22,11 @@
     url('fonts/Calibri.ttf') format('truetype');
 }
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small,
-strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form,
-label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
-details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
-section, summary, time, mark, audio, video, input, button, select {
+* {
     margin: 0;
     padding: 0;
     border: 0;
+    box-sizing: border-box ;
     font-family: 'Shabnam';
 }
 
@@ -247,6 +243,8 @@ body {
     line-height: 30px;
     font-size: 11px;
     padding: 0 15px;
+    min-width: 84px;
+    text-align: center;
 }
 
 .web_header .features .panel_responsive:hover > svg {
@@ -1567,19 +1565,16 @@ nav, ul, ol, li {
     }
 
     .snip1404 .plan1 {
-        width: 25%;
-        margin-right: 13%;
-
+        width: 100%;
     }
 
     .snip1404 .plan3 {
-        width: 25%;
-        margin-left: 12%;
+        width: 100%;
 
     }
 
     .snip1404 .featured {
-        width: 25%;
+        width: 100%;
 
     }
 
@@ -2005,11 +2000,11 @@ nav, ul, ol, li {
 .snip1404 {
     font-family: 'iranyekan';
     color: #ffffff;
-    text-align: right;
     font-size: 16px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 50px 10px;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .snip1404 img {
@@ -2021,20 +2016,18 @@ nav, ul, ol, li {
 }
 
 .snip1404 .plan {
-    margin: 0;
-    width: 24%;
-    position: relative;
-    float: right;
+    margin-top: 20px;
+    width: 100%;
     overflow: hidden;
-    background-image: linear-gradient(to bottom, #8e44b3, black)
-}
-
-.snip1404 .plan1 {
-    margin-right: 19%;
-}
-
-.snip1404 .plan3 {
-    margin-left: 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #161616; 
+    border: 1px solid #eee;
+    border-color: #331926;
+    box-shadow: 0 0 25px rgb(0 0 0 / 40%);
+    border-radius: 8px !important;
+   
 }
 
 .snip1404 .plan:hover i,
@@ -2043,9 +2036,6 @@ nav, ul, ol, li {
     transform: scale(1.2);
 }
 
-.snip1404 .plan:first-of-type {
-    border-radius: 8px 0 0 8px;
-}
 
 .snip1404 .plan:last-of-type {
     border-radius: 0 8px 8px 0;
@@ -2063,28 +2053,13 @@ nav, ul, ol, li {
 }
 
 .snip1404 .plan-title {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: relative;
-    margin: 0;
-    padding: 20px 20px 0;
     letter-spacing: 1px;
     font-size: 1.5rem;
+    margin-bottom: 15px;
 }
 
-.snip1404 .plan-title:after {
-    position: absolute;
-    content: '';
-    top: 100%;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 40px 300px 0 0;
-    border-color: rgba(0, 0, 0, 0.5) transparent transparent;
-}
 
 .snip1404 .plan-cost {
-    padding: 40px 20px 10px;
     text-align: right;
 }
 
@@ -2102,10 +2077,13 @@ nav, ul, ol, li {
 }
 
 .snip1404 .plan-features {
-    padding: 0 0 20px;
     margin: 0;
     list-style: outside none none;
     font-size: 13px;
+    display: flex;
+    width:50%;
+    justify-content: center;
+    align-items: center;
 }
 
 .snip1404 .plan-features li {
@@ -2123,23 +2101,15 @@ nav, ul, ol, li {
 }
 
 .snip1404 .plan-select a {
-    background-color: #fd6500;
-    color: #ffffff;
     text-decoration: none;
-    padding: 12px 20px;
-    font-size: 0.75em;
-    font-weight: 600;
-    border-radius: 8px;
-    text-transform: uppercase;
     display: inline-block;
 }
 
 .snip1404 .plan-select a:hover {
-    background-color: #552a3f;
+    background-color: #eee;
 }
 
 .snip1404 .featured {
-    margin-top: -10px;
     border-color: #331926;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
     z-index: 1;
@@ -2152,38 +2122,31 @@ nav, ul, ol, li {
 
 @media only screen and (max-width: 1200px) {
     .snip1404 .plan1 {
-        width: 25%;
-        margin-right: 13%;
-
+        width: 100%;
     }
 
     .snip1404 .plan3 {
-        width: 25%;
-        margin-left: 12%;
+        width: 100%;
 
     }
 
     .snip1404 .featured {
-        width: 25%;
+        width: 100%;
 
     }
 }
 
 @media only screen and (max-width: 900px) {
     .snip1404 .plan1 {
-        width: 25%;
-        margin-right: 12%;
-
+        width: 100%;
     }
 
     .snip1404 .plan3 {
-        width: 25%;
-        margin-left: 13%;
-
+        width: 100%;
     }
 
     .snip1404 .featured {
-        width: 25%;
+        width: 100%;
 
     }
 }
@@ -2191,19 +2154,21 @@ nav, ul, ol, li {
 @media only screen and (max-width: 767px) {
     .snip1404 .plan {
         font-size: 11px;
-
+        padding: 15px;
     }
 
     .snip1404 header {
         padding: 5px 25px;
     }
-
+    .snip1404 .plan-title {
+        margin-bottom: 10px !important;
+    }
     .snip1404 .plan-cost .plan-price {
-        font-size: 18px;
+        font-size: 12px;
     }
 
     .snip1404 .plan-features {
-        text-align: center;
+        padding-left: 20px;
     }
 
 
@@ -2215,19 +2180,22 @@ nav, ul, ol, li {
 
     .snip1404 .plan-select,
     .snip1404 .featured .plan-select {
-        padding: 5px 20px;
+        display: none;
+        padding: 5px 10px;
     }
 
-    .snip1404 .featured {
-        margin-top: 0;
-    }
 }
 
 @media only screen and (max-width: 550px) {
     .snip1404 .plan {
-        width: 80%;
-        margin-right: 8%;
-        margin-left: 12%;
+        width: 100%;
+    }
+    .snip1404 .plan-title {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+    .snip1404 .plan-cost .plan-price {
+        font-size: 10px;
     }
 
 }
@@ -2373,4 +2341,38 @@ button:hover {
 
 .alert-danger .alert-link {
     color: #843534;
+}
+
+/* ---------------aliakbar nabizadeh---------------- */
+.menu-footer-f {
+    display: block !important;
+}
+.menu-footer-f li {
+    display: inline;
+}
+@media (max-width:1100px) {
+    .web_header {
+        padding-bottom: 0;
+    }
+    .film-entry{
+        transform: translateY(-85px);
+   } 
+}
+@media (max-width:1000px) {
+    .film-entry{
+        transform: translateY(-140px);
+   } 
+}
+@media (max-width:900px) {
+    .film-entry{
+        transform: translateY(-160px);
+   } 
+}
+@media (max-width:768px) {
+    .web_header {
+        padding-bottom: 45px;
+    }
+    .film-entry{
+        transform: translateY(0px);
+   } 
 }
